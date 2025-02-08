@@ -2,14 +2,14 @@
 {% load static %}
 <html>
     <head>
-        <title>~Albert Einstein's Quote of the Day~</title>
+        <title>Albert Einstein's Quote of the Day</title>
         <link rel="stylesheet" href="{%static 'styles.css'%}">
     </head>
     <body>
         <div class="grid">
             <header>
                 <h1>
-                    Albert Einstein QOTD
+                    ~Albert Einstein QOTD~
                 </h1>
             </header>
             <nav>
@@ -29,6 +29,9 @@
                         <li>{{ quote1 }}</li>
                         <li>{{ quote2 }}</li>
                         <li>{{ quote3 }}</li>
+                        <li>{{ quote4 }}</li>
+                        <li>{{ quote5 }}</li>
+                        <li>{{ quote6 }}</li>
                     </ul>
                 <h2>All Images of Einstein</h2>
                     <ul></ul>
@@ -37,9 +40,16 @@
                         </li>
                         <li>
                             <img src="{% static image2 %}" alt="einstein2">
-                            /li>
                         <li>
                             <img src="{% static image3 %}" alt="einstein3">
+                        </li>
+                        <li>
+                            <img src="{% static image4 %}" alt="einstein4">
+                        </li>
+                        <li>
+                            <img src="{% static image5 %}" alt="einstein5">
+                        <li>
+                            <img src="{% static image6 %}" alt="einstein6">
                         </li>
                     </ul>
             </main>
