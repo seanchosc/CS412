@@ -1,0 +1,49 @@
+<!-- quotes/templates/hw/about.html -->
+{% block content %}
+{% load static %}
+<html>
+    <head>
+        <title>Albert Einstein Quote of the Day</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+</html>
+
+<body>
+    <div class="grid">
+        <header>
+            <h1>Albert Einstein Quote of the Day</h1>
+        </header>
+        <nav>
+            <li>
+                <a href="{% url 'quote' %}">Quote of the Day</a>
+            </li>
+            <li>
+                <a href="{% url 'show_all' %}">Show All</a>
+            </li>
+            <li>
+                <a href="{% url 'about' %}"">About</a>
+            </li>
+        </nav>
+        <main>
+            <h2>Welcome</h2>
+            <p>This is the Albert Einstein QOTD app!</p>
+            <p>You will see quotes by and images of
+                <a href="https://en.wikipedia.org/wiki/Albert_Einstein" target-="_blank">Albert Einstein</a>
+                .
+            </p>
+            <p>
+                "Albert Einstein was a German mathematician and physicist who developed the special and general theories of relativity. In 1921, he won the Nobel Prize in Physics for his explanation of the photoelectric effect. In the following decade, he immigrated to the United States after being targeted by the German Nazi Party"
+                ~ <a href="https://www.biography.com/scientists/albert-einstein" target-="_blank">Biography.com</a>
+            </p>
+        </main>
+        <aside>
+            <p></p>
+        </aside>
+        <footer>
+            <p>
+                "App created by seancho@bu.edu"
+            </p>
+        </footer>
+    </div>
+</body>
+{% endblock %}
