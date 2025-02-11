@@ -40,10 +40,10 @@ main h2 {
     max-width: 600px;
 }
 main img {
-    max-width: 300px; /* ✅ Sets a max width */
-    height: auto;  /* ✅ Keeps aspect ratio */
-    display: block; /* ✅ Prevents inline spacing issues */
-    margin: 10px auto; /* ✅ Centers image */
+    max-width: 300px;
+    height: auto;
+    display: block;
+    margin: 10px auto;
 }
 
 main p {
@@ -69,7 +69,7 @@ footer {
     column-gap: 5px;
 }
 .thumbnail-grid img {
-    max-width: 200px; /* ✅ Smaller thumbnails */
+    max-width: 200px;
     height: auto;
 }
 @media screen and (max-width: 1200px) {
