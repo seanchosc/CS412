@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
+from django.conf.urls.static import static
 import random
 # Create your views here.
 quotes = [

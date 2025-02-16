@@ -2,16 +2,57 @@
 {% load static %}
 <html>
     <head>
-        <title>Hello, world!</title>
+        <title>Graffiti Pizza & Street Food</title>
         <link rel="stylesheet" href="{% static 'styles.css' %}">
     </head>
     <body>
-        
     {% block content %}
+        <div class="grid">
+            <header>
+                <h1>Graffiti</h1>
+            </header>
+            <nav>
+                <li>
+                    <a href="{% url 'main' %}">Main Page</a>
+                </li>
+                <li>
+                    <a href="{% url 'order' %}">Order Page</a>
+                </li>
+                <li>
+                    <a href="{% url 'confirmation' %}">Confirmation Page</a>
+                </li>
+            </nav>
+            <main>
+                <h2>Pizza & Street Food</h2>
+                <img src="{% static logo %}">
+                <img src="{% static storefront %}">
+                <p>
+                Welcome to
+                <strong> Graffiti</strong>, a Pizza & Street Food spot!
+                </p>
+                <p>We are located at:
+                    <strong> 136 Harvard Ave, Boston, MA 02134</strong>
+                </p>
+                Our hours of operation are:
+                <ul class="hoursOfOperation">
+                    <li><strong>Saturday:</strong> 12PM ~ 3AM</li>
+                    <li><strong>Sunday:</strong> 12PM ~ 3AM</li>
+                    <li><strong>Monday:</strong> 12PM ~ 12AM</li>
+                    <li><strong>Tuesday:</strong> 12PM ~ 12AM</li>
+                    <li><strong>Wednesday:</strong> 12PM ~ 12AM</li>
+                    <li><strong>Thursday:</strong> 12PM ~ 12AM</li>
+                    <li><strong>Friday:</strong> 12PM ~ 12AM</li>
+                  </ul>
+            </main>
+            <aside>
+                <p></p>
+            </aside>
+            <footer>
+                <p>
+                    "Page created by seancho@bu.edu"
+                </p>
+            </footer>
+        </div>
     {% endblock %}
-    
-    <!-- <hr>
-    The current time is {{current_time}}. -->
-
     </body>
 </html>
