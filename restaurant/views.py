@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from django.conf.urls.static import static
+import random
 # Create your views here.
 
 images = [
@@ -14,15 +15,69 @@ def main(request):
     logo = images[0] # Refers to first image (logo) in the list
     storefront = images[1] # Refers to second (storefront)
     context = {
-        'logo' : logo, # Context variable for logo
-        'storefront' : storefront, # Context variable for storefront
+        'logo' : logo, # Context variable for logo photo
+        'storefront' : storefront, # Context variable for storefront photo
     }
     return render(request, template_name, context)
 
 def order(request):
     '''Show the web page with the form.'''
     template_name = "restaurant/order.html" # Order template from templates folder
-    return render(request, template_name)
+    specials = [
+        'BBQ Chicken Pizza - $14',
+        'Buffalo Wings - $14',
+        'Pork Tacos - $14',
+    ]
+    special = random.choice(specials)
+    return render(request, template_name, {'special': special})
+
+## restaurant/views.py: submit function
+def submit(request):
+    '''Process the form submission, and generate a result.'''
+    template_name = "restaurant/confirmation.html"
+    # read the form data into python variables:
+    if request.POST:
+
+        name = request.POST['name']
+        number = request.POST['number']
+        email = request.POST['email']
+
+        order = []
+        total = 0
+        if 'special' in request.POST:
+            order.append("Daily Special")
+            total += 14
+        if 'pepperoni' in request.POST:
+            order.append("Pepperoni Pizza")
+            total += 12
+        if 'cheese' in request.POST:
+            order.append("Cheese Pizza")
+            total += 10
+        if 'hotdog' in request.POST:
+            order.append("Hotdog")
+            total += 6
+        if 'instructions' in request.POST and request.POST['instructions'].strip():
+            instructions = request.POST['instructions']
+        else:
+            instructions = "None"
+        if 'shake' in request.POST and 'flavor' in request.POST and request.POST['flavor'].strip():
+            flavor = request.POST['flavor']
+            total += 5
+        else:
+            flavor = "Not specified"
+            total += 5
+        context = {
+            'name': name, # Name context variable
+            'number': number, # Phone number context variable
+            'email': email, # email
+            'order': order if order else ['No order'], # context variable for items
+            'flavor' : flavor, # context variable for shake flavor
+            'instructions': instructions, # context variable for instructions
+            'total' : f"${total:.2f}" # total context variable
+        }
+        request.session['confirmation'] = context
+
+    return render(request, template_name, context=context)
 
 def confirmation(request):
     '''Show the order confirmation.'''

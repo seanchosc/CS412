@@ -1,17 +1,27 @@
 <!-- restaurant/templates/restaurant/confirmation.html -->
-{% load static %}
-<html>
-    <head>
-        <title>Hello, world!</title>
-        <link rel="stylesheet" href="{% static 'styles.css' %}">
-    </head>
-    <body>
-        
-    {% block content %}
-    {% endblock %}
-    
-    <!-- <hr>
-    The current time is {{current_time}}. -->
+{% extends 'restaurant/base.html' %}
+{% block content %}
+<div>
+<h2>Confirmation</h2>
+    Thank you for your order!
+<h4>Your order will be ready soon!</h4>
+<h3>Your order:</h3>
+<ul>
+    {% for item in order %}
+        <li>{{ item }}</li>
+    {% empty %}
+        <li>No order</li>
+    {% endfor %}
+</ul>
+{% if flavor != "Not specified" %}
+<p><strong>Shake Flavor:</strong> {{ flavor }}</p>
+{% endif %}
+<h3><strong>Special Instructions:</strong> {{ instructions }}</h3>
+<h3><strong> Total: </strong> {{ total }}</h3>
+<h3>Customer Information:</h3>
+<div><strong>Name:</strong> {{ name }}</div>
+<div><strong>Phone Number:</strong> {{ number }}</div>
+<div><strong>Email:</strong> {{ email }}</div>
 
-    </body>
-</html>
+</div>
+{% endblock %}

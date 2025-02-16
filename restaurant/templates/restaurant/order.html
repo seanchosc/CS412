@@ -1,15 +1,84 @@
 <!-- restaurant/templates/restaurant/order.html -->
-{% extends 'restaurant/main.html' %}
-
+{% extends 'restaurant/base.html' %}
 {% block content %}
-<div>
-<h1>Contact Form</h1>
+<div class="grid">
+    <h2>Place an Order</h2>
+    <main>
+        <form action="{% url 'submit' %}" method="POST">
+            {% csrf_token %}
 
-<form action="">
-    Name: <input type="text" name="name">
-    Favorite color: <input type="text" name="favorite_color">
-    <input type="submit">
+            <!-- Menu -->
+            <div>
+                <h3>Select Your Items:</h3>
 
-</form>
+                <!-- Daily Special -->
+                <div>
+                    <input type="checkbox" name="special"> 
+                    <strong>Daily Special:</strong> {{ special }}
+                </div>
+
+                <!-- Pepperoni Pizza -->
+                <div>
+                    <input type="checkbox" name="pepperoni"> 
+                    Pepperoni Pizza - $12.00
+                </div>
+
+                <!-- Cheese Pizza -->
+                <div>
+                    <input type="checkbox" name="cheese"> 
+                    Cheese Pizza - $10.00
+                </div>
+
+                <!-- Hotdog -->
+                <div>
+                    <input type="checkbox" name="hotdog"> 
+                    Hotdog - $6.00
+                </div>
+
+                <!-- Shake with Flavor Options -->
+                <div>
+                    <input type="checkbox" name="shake"> 
+                    Shake - $5.00
+                    <p>Shake Flavor:</p>
+                    <select name="flavor">
+                        <option></option>
+                        <option>Vanilla</option>
+                        <option>Chocolate</option>
+                        <option>Strawberry</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Special Instructions -->
+            <div>
+                <h3>Special Instructions</h3>
+                <textarea name="instructions" rows="3" cols="60"></textarea>
+            </div>
+
+            <!-- Customer Information -->
+            <div>
+                <h3>Customer Information</h3>
+                <div>
+                    Name:
+                    <input type="name" name="name" required>
+                </div>
+                <div>
+                    Phone Number:
+                    <input type="number" name="number" required>
+                </div>
+                <div>
+                    Email:
+                    <input type="email" name="email" required>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div>
+                <input type="submit" value="Submit Order">
+            </div>
+        </form>
+    </main>
 </div>
+
+
 {% endblock %}
