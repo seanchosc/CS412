@@ -13,8 +13,8 @@
             <a href="{% url 'order' %}">Order Page</a>
         </li>
     </nav>
-    <h2>Place an Order</h2>
     <main>
+        <h2>Place an Order</h2>
         <form action="{% url 'submit' %}" method="POST">
             {% csrf_token %}
 
