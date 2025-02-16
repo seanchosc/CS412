@@ -13,11 +13,11 @@
         <li>No order</li>
     {% endfor %}
 </ul>
-{% if flavor != 'Not specified' %}
+{% if flavor != "No shake ordered" %}
 <p><strong>Shake Flavor:</strong> {{ flavor }}</p>
 {% endif %}
 <h3><strong>Special Instructions:</strong></h3>{{ instructions }}
-<h3><strong> Total: </strong></h3> {{ total }}
+<h3><strong> Total: </strong></h3> <b>${{ total }}</b>
 <h3>Customer Information:</h3>
 <div><strong>Name:</strong> {{ name }}</div>
 <div><strong>Phone Number:</strong> {{ number }}</div>
