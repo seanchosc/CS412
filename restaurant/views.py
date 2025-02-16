@@ -55,17 +55,17 @@ def submit(request):
         if 'hotdog' in request.POST:
             order.append("Hotdog")
             total += 6
-        if 'instructions' in request.POST and request.POST['instructions'].strip():
+        if 'instructions' in request.POST:
             instructions = request.POST['instructions']
         else:
             instructions = "None"
         if 'shake' in request.POST:
             total += 5
             selectedflavor = request.POST.get('flavor', '')
-            if selectedflavor:
-                flavor = selectedflavor
+            if selectedflavor == '':
+                flavor = "Not specified, will choose at random"
             else:
-                flavor = "Not specified"
+                flavor = selectedflavor
         else:
             flavor = "No shake ordered"
         context = {
