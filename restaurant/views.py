@@ -35,7 +35,6 @@ def order(request):
 def submit(request):
     '''Process the form submission, and generate a result.'''
     template_name = "restaurant/confirmation.html"
-    # read the form data into python variables:
     if request.POST:
 
         name = request.POST['name']
@@ -60,12 +59,15 @@ def submit(request):
             instructions = request.POST['instructions']
         else:
             instructions = "None"
-        if 'shake' in request.POST and 'flavor' != '':
-            flavor = request.POST['flavor']
+        if 'shake' in request.POST:
             total += 5
+            selectedflavor = request.POST.get('flavor', '')
+            if selectedflavor:
+                flavor = selectedflavor
+            else:
+                flavor = "Not specified"
         else:
-            flavor = "Not specified"
-            total += 5
+            flavor = "No shake ordered"
         context = {
             'name': name, # Name context variable
             'number': number, # Phone number context variable
@@ -73,10 +75,9 @@ def submit(request):
             'order': order if order else ['No order'], # context variable for items
             'flavor' : flavor, # context variable for shake flavor
             'instructions': instructions, # context variable for instructions
-            'total' : f"${total:.2f}" # total context variable
+            'total' : total # total context variable
         }
         request.session['confirmation'] = context
-
     return render(request, template_name, context=context)
 
 def confirmation(request):
