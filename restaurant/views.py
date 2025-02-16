@@ -60,6 +60,7 @@ def submit(request):
         else:
             instructions = "None"
         if 'shake' in request.POST:
+            order.append("Shake")
             total += 5
             selectedflavor = request.POST.get('flavor', '')
             if selectedflavor == '':
