@@ -60,7 +60,7 @@ def submit(request):
             instructions = request.POST['instructions']
         else:
             instructions = "None"
-        if 'shake' in request.POST and 'flavor' in request.POST and request.POST['flavor'].strip():
+        if 'shake' in request.POST and 'flavor' != '':
             flavor = request.POST['flavor']
             total += 5
         else:
