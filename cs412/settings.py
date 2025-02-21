@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "quotes",
-    "restaurant",
+    "quotes", # Assignment 3, Quotes App
+    "restaurant", # Assignment 4, Restaurant App
+    "mini_fb", # Assignment 5, Mini Facebook App
 ]
 
 MIDDLEWARE = [
