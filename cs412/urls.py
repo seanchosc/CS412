@@ -21,5 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("quotes/", include("quotes.urls")), # NEW QUOTES APP PATH
     path("restaurant/", include("restaurant.urls")), # NEW RESTERAUNT APP PATH
-    #path("mini_fb1/"), include("mini_fb.urls") # Mini Facebook App Path
+    path("mini_fb1/"), include("mini_fb.urls") # include the URLs from our mini_fb project's urls.py file
 ]
