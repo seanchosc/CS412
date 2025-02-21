@@ -4,12 +4,13 @@
 from django.shortcuts import render
 from .models import Profile # import Profile model
 from django.views.generic import ListView
-
+class BaseView(ListView):
+    model = Profile # retrieve objects of type Profile from the database
+    template_name = 'mini_fb/base.html' # base template
+    context_object_name = 'profiles' # how to find the data in the template file
 class ShowAllProfilesView(ListView):
     '''Create a subclass of ListView to display all profiles.'''
-
     model = Profile # retrieve objects of type Profile from the database
-    template_name = 'mini_fb/show_all_profiles.html'
+    template_name = 'mini_fb/show_all_profiles.html' # show_all_profiles template
     context_object_name = 'profiles' # how to find the data in the template file
 
-    

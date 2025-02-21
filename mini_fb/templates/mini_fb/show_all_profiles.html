@@ -1,18 +1,27 @@
 <!-- templates/show_all_profiles.html -->
-
+{% extends 'mini_fb/base.html' %}
 <h1>Showing all Profiles</h1>
 <!-- scriptlet code to display the value of the variable `profiles`  -->
 {{ profiles }}
-<div>
-    <!-- loop to display all profiles -->
-    {% for p in profiles %}
-    <div class="crop">
-        {% if p.profileImageURL %}
-            <!-- display profile photo -->
-            <img src="{{ p.profileImageURL }}" alt="Profile Photo">
-        {% endif %}
+{% block content %}
+<main class="grid" >
+    <div>
+        <!-- loop to display all profiles -->
+        {% for p in profiles %}
+        <div class="crop">
+            {% if p.profileImageURL %}
+                <!-- display profile photo -->
+                <img src="{{ p.profileImageURL }}" alt="Profile Photo">
+            {% endif %}
+        </div>
+        <!-- display full name -->
+        <h3>
+            <strong>{{ p.firstName }} {{ p.lastName }}</strong>
+            <br> </br>
+            <b> {{ p.city }} </b>            
+        </h3>
+        {% endfor %}
     </div>
-    <!-- display full name -->
-    <h2>{{ p.firstName }} {{ p.lastName }}</h2>
-    {% endfor %}
-</div>
+</main>
+
+{% endblock %}

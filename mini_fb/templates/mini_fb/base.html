@@ -1,5 +1,27 @@
+<!-- templates/base.html -->
+<!-- mini_fb/templates/mini_fb/base.html -->
+{% load static %}
 <!DOCTYPE html>
+<!-- head -->
 <head>
     <title> Mini Facebook </title>
-    
+    <link rel="stylesheet" href="{% static 'mfb_styles.css' %}">
 </head>
+<!-- body -->
+<body>
+    <header>
+        <h1>Profile</h1>
+    </header>
+    <!-- navigation links-->
+    <nav>
+        <ul>
+            <li><a href="{% url 'base' %}">Base</a></li>
+            <li><a href="{% url 'show_all_profiles' %}">All Profiles</a></li>
+        </ul>
+    </nav>
+
+{% block content %}
+<!-- to be filled in by the pages that inherit from base.html -->
+{% endblock %}    
+
+</body>
