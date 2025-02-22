@@ -1,0 +1,32 @@
+<!-- 
+Create template to show one profile:
+(start from the show_all_profiles.html, remove loop and add class="featured")
+mini_fb/template/mini_fb/show_profile.html
+ --> 
+
+<!-- mini_fb/templates/mini_fb/shhow_profile.html -->
+{% extends 'mini_fb/base.html' %}
+{% load static %}
+<h1>{{ profile.firstName }} {{ profile.lastName }} </h1>
+{% block content %}
+<main class="grid">
+    <profile class="featured">
+        {% if profile.profileImageURL %}
+            <!-- implemented conditionals in case of static photos-->
+            {% if p.profileImageURL|slice:":5" == "https" %}
+            <!-- image starts with 'https') -->
+            <img src="{{ profile.profileImageURL }}" alt="Profile Photo">
+            {% else %}
+            <!-- Local static image -->
+            <img src="{% static 'images/mini_fb/' %}{{ profile.profileImageURL }}" alt="Profile Photo">
+            {% endif %}
+        {% endif %}
+        <div>
+            <h2>{{ profile.firstName }} {{ profile.lastName }} </h2>
+            <span class="small">{{ profile.city }}</span> <!-- city text styled--> 
+            <br> <!-- new line -->
+            <span class="small">email: </span><a href="mailto:{{ profile.emailAddress }}">{{ profile.emailAddress }}</a> <!-- email route and text styled-->   
+        </div>
+    </profile>
+</main>
+{% endblock %}

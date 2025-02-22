@@ -4,6 +4,7 @@
 # Define the data objects for our application
 #
 from django.db import models
+from django.templatetags.static import static # import static to use my custom photo in images for butter cat
 
 # Create your models here.
 class Profile(models.Model):
@@ -14,7 +15,7 @@ class Profile(models.Model):
     lastName = models.TextField(blank=False) # person's last name attribute
     city = models.TextField(blank=False) # person's city attribute
     emailAddress = models.TextField(blank=False) # person's email attribute
-    profileImageURL = models.URLField(blank=True) # person's profile image url attribute
+    profileImageURL = models.TextField(blank=False) # person's profile image url attribute
     
     def __str__(self):
         '''Return a string representation of this Profile object.'''

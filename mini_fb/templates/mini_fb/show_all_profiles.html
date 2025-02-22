@@ -4,21 +4,33 @@
 <!-- scriptlet code to display the value of the variable `profiles`  -->
 {{ profiles }}
 {% block content %}
+{% load static %}
 <main class="grid" >
     <div>
         <!-- loop to display all profiles -->
-        {% for p in profiles %}
+        {% for p in profiles %} <!-- for each profile-->
         <div class="crop">
             {% if p.profileImageURL %}
                 <!-- display profile photo -->
-                <img src="{{ p.profileImageURL }}" alt="Profile Photo">
+                <a href="{% url 'show_profile' p.pk %}"> <!-- substituting in the primary key for each profile -->
+                    <!-- implemented conditionals in case of static photos-->
+                    {% if p.profileImageURL|slice:":5" == "https" %}
+                    <!-- image starts with 'https') -->
+                    <img src="{{ p.profileImageURL }}" alt="Profile Photo">
+                    {% else %}
+                    <!-- Local static image -->
+                    <img src="{% static 'images/mini_fb/' %}{{ p.profileImageURL }}" alt="Profile Photo">
+                {% endif %}
+                </a>
             {% endif %}
         </div>
         <!-- display full name -->
         <h3>
-            <strong>{{ p.firstName }} {{ p.lastName }}</strong>
-            <br> </br>
-            <b> {{ p.city }} </b>            
+            <a href="{% url 'show_profile' p.pk %}"> <!-- substituting in the primary key for each profile -->
+                <strong>{{ p.firstName }} {{ p.lastName }}</strong>
+            </a>
+            <br> <!-- new line -->
+            <span class="small">{{ p.city }}</span> <!-- city text styled-->        
         </h3>
         {% endfor %}
     </div>
