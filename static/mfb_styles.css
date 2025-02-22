@@ -2,7 +2,7 @@
 
 body {
     margin: 30px;
-    background: #5151f2;
+    background: #8FAAFF;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     
 }
@@ -69,6 +69,13 @@ main {
     
 }
 
+/* Small text styling for city and email */
+.small-text {
+    font-size: 14px;  /* Make text smaller */
+    color: gray;
+    display: block;   /* Ensures city and email appear directly below the name */
+    margin-top: 2px;  /* Adds a tiny space below the name */
+}
 
 .grid {
     background: #fff;
