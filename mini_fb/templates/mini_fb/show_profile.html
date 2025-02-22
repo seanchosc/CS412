@@ -13,7 +13,7 @@ mini_fb/template/mini_fb/show_profile.html
     <profile class="featured">
         {% if profile.profileImageURL %}
             <!-- implemented conditionals in case of static photos-->
-            {% if p.profileImageURL|slice:":5" == "https" %}
+            {% if profile.profileImageURL|slice:":5" == "https" %}
             <!-- image starts with 'https') -->
             <img src="{{ profile.profileImageURL }}" alt="Profile Photo">
             {% else %}
