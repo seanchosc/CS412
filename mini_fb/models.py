@@ -23,8 +23,8 @@ class Profile(models.Model):
     
 class StatusMessage(models.Model):
     '''models the data attributes of Facebook status message'''
-    timestamp = '(the time at which this status message was created/saved)' # the time at which this status message was created/saved
-    message = models.TextField(blank = False) # the text of the status message
+    timestamp = models.DateTimeField(auto_now=True) # the time at which this status message was created/saved
+    message = models.TextField(blank=False) # the text of the status message
     profile = models.ForeignKey("Profile", on_delete=models.CASCADE) # the foreign key to indicate the relationship to the Profile of the creator of this message
 
     def __str__(self):
