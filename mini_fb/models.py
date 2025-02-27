@@ -26,7 +26,7 @@ class StatusMessage(models.Model):
     timestamp = models.DateTimeField(auto_now=True) # the time at which this status message was created/saved
     message = models.TextField(blank=False) # the text of the status message
     profile = models.ForeignKey("Profile", on_delete=models.CASCADE) # the foreign key to indicate the relationship to the Profile of the creator of this message
-
+    
     def __str__(self):
         ''' Return a string representation of this StatusMessage object '''
         return f'{self.message}, {self.timestamp} ~ {self.profile}'
