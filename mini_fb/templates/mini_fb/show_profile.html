@@ -42,10 +42,12 @@ mini_fb/template/mini_fb/show_profile.html
                         <span class="small"> <!-- minor styling -->
                             at {{status_message.timestamp}} <!-- display the timestamp -->
                         </span>
-                        <h3><a href="{% url 'create_status' profile.pk %}">Write a Status Message!</a></h3> <!-- new create status message functionality-->
                     </div>
                 </a>
                 {% endfor %}
+                <span class="small">
+                    <h3><a href="{% url 'create_status' profile.pk %}">Write a Status Message!</a></h3> <!-- new create status message functionality-->
+                </span>
             </div>
         </div>
     </profile>

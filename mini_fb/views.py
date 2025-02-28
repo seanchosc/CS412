@@ -42,7 +42,7 @@ class CreateProfileView(CreateView):
 class CreateStatusMessageView(CreateView):
     '''A view to create a new status message and save it to the database.'''
     form_class = CreateStatusMessageForm
-    template_name = 'mini_fb/create_status_form' # show create status form template
+    template_name = 'mini_fb/create_status_form.html' # show create status form template
     def get_context_data(self):
         '''Return the dictionary of context variables for use in the template.'''
 
