@@ -30,9 +30,9 @@ mini_fb/template/mini_fb/show_profile.html
             <div>
                 <h2> Status Messages </h2>
                 <!-- Status Messages:
-                {{p.get_status_messages}} -->
+                {{profile.get_status_messages}} -->
             
-                {% for status_message in p.get_status_messages %}
+                {% for status_message in profile.get_status_messages %}
                 <a>
                     <div>
                         <strong> {{status_message.message}} </strong>
