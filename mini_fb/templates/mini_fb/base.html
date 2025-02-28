@@ -18,6 +18,11 @@
             <li><a href="{% url 'show_all_profiles' %}">All Profiles</a></li>
         </ul>
     </nav>
+    <nav> <!-- added support for create profile page -->
+        <ul>
+            <li><a href="{% url 'create_profile' %}">Create a profile</a></li>
+        </ul>
+    </nav>
 
 {% block content %}
 <!-- to be filled in by the pages that inherit from base.html -->
