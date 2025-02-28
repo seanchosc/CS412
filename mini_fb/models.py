@@ -21,6 +21,11 @@ class Profile(models.Model):
         '''Return a string representation of this Profile object.'''
         return f'{self.firstName} {self.lastName}' # return as string their full name (no middle name attribute) 
     
+    def get_status_messages(self):
+        ''' accessor method to obtain all status messages for this Profile '''
+        messages = StatusMessage.objects.filter(profile = self)
+        return messages
+    
 class StatusMessage(models.Model):
     '''models the data attributes of Facebook status message'''
     timestamp = models.DateTimeField(auto_now=True) # the time at which this status message was created/saved
@@ -30,8 +35,3 @@ class StatusMessage(models.Model):
     def __str__(self):
         ''' Return a string representation of this StatusMessage object '''
         return f'{self.message}, {self.timestamp} ~ {self.profile}'
-    
-    def get_status_messages(self):
-        ''' accessor method to obtain all status messages for this Profile '''
-        messages = StatusMessage.objects.filter(profile = self)
-        return messages
