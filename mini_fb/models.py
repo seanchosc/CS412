@@ -5,7 +5,7 @@
 #
 from django.db import models
 from django.templatetags.static import static # import static to use my custom photo in images for butter cat
-
+from django.urls import reverse # import reverse for get_absolute_url
 # Create your models here.
 class Profile(models.Model):
     '''Encapsulate the idea of a Profile.'''
@@ -25,6 +25,10 @@ class Profile(models.Model):
         ''' accessor method to obtain all status messages for this Profile '''
         messages = StatusMessage.objects.filter(profile = self) # filter the status messages
         return messages
+    
+    def get_absolute_url(self):
+        '''Return the URL to display one instance of this model.'''
+        return reverse('profile', kwargs={'pk':self.pk})
     
 class StatusMessage(models.Model):
     '''models the data attributes of Facebook status message'''

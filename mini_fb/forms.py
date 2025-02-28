@@ -9,9 +9,9 @@ class CreateProfileForm(forms.ModelForm):
         fields = ['firstName', 'lastName', 'city', 'emailAddress', 'profileImageURL']
 
     # list of fields that this form should set (i.e., all of the data attributes of the Profile class) #
-    firstName = forms.CharField(required=True) # person's first name attribute
-    lastName = forms.CharField(required=True) # person's last name attribute
-    city = forms.CharField(required=True) # person's city attribute
-    emailAddress = forms.CharField(required=True) # person's email attribute
-    profileImageURL = forms.CharField(required=True) # person's profile image url attribute
+    firstName = forms.CharField(required=True, label = "First name:") # person's first name attribute
+    lastName = forms.CharField(required=True, label = "Last name:") # person's last name attribute
+    city = forms.CharField(required=True, label = "City") # person's city attribute
+    emailAddress = forms.CharField(required=True, label = "Email address:") # person's email attribute
+    profileImageURL = forms.CharField(required=True, label = "Profile photo URL:") # person's profile image url attribute
 
