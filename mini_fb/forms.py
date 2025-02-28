@@ -22,5 +22,6 @@ class CreateStatusMessageForm(forms.ModelForm):
         model = StatusMessage
         fields = ['message']
     # list of fields that this form should set #
-    message = forms.CharField(max_length=200, required=True, label = "Your new message:")
+    message = forms.CharField(max_length=200, required=True, label = "Your new message:",
+                              widget=forms.Textarea(attrs={"rows": 4, "cols": 50})) # larger text box
 

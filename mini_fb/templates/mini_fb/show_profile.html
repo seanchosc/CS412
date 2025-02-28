@@ -30,7 +30,7 @@ mini_fb/template/mini_fb/show_profile.html
 
             <!-- NEW STATUS MESSAGE DISPLAY IMPLEMENTATION-->
             <div> 
-                <h2> Status Messages </h2> 
+                <h3> Status Messages: </h3> 
                 <!-- Status Messages:
                 {{profile.get_status_messages}} -->
                 {% for status_message in profile.get_status_messages %} 
@@ -46,7 +46,7 @@ mini_fb/template/mini_fb/show_profile.html
                 </a>
                 {% endfor %}
                 <span class="small">
-                    <h3><a href="{% url 'create_status' profile.pk %}">Write a Status Message!</a></h3> <!-- new create status message functionality-->
+                    <h3><a href="{% url 'create_status' profile.pk %}">Write a status message</a></h3> <!-- new create status message functionality-->
                 </span>
             </div>
         </div>
