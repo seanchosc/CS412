@@ -20,7 +20,7 @@ class ShowAllProfilesView(ListView):
     template_name = 'mini_fb/show_all_profiles.html' # show_all_profiles template
     context_object_name = 'profiles' # how to find the data in the template file
 
-### Create DetailView to show one article by its PK:
+### Create DetailView to show one Profile by its PK:
 # mini_fb/views.py
 #SHOW PROFILE PAGE VIEW:
 class ShowProfilePageView(DetailView):
@@ -64,7 +64,7 @@ class CreateStatusMessageView(CreateView):
         # retrieve the PK from the URL pattern
         pk = self.kwargs['pk']
         # call reverse to generate the URL for this Profile
-        return reverse('article', kwargs={'pk':pk})
+        return reverse('profile', kwargs={'pk':pk})
     
     def form_valid(self, form):
         '''This method handles the form submission and saves the 
