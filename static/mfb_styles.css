@@ -1,6 +1,6 @@
 /* This CSS was derived from NetNinja's multi-column grid example. */
 div {
-    width: 100%;
+    width: minmax(100%, 500px);
 }
 
 body {
