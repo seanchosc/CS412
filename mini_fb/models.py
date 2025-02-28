@@ -23,7 +23,7 @@ class Profile(models.Model):
     
     def get_status_messages(self):
         ''' accessor method to obtain all status messages for this Profile '''
-        messages = StatusMessage.objects.filter(profile = self)
+        messages = StatusMessage.objects.filter(profile = self) # filter StatusMessage objects by their profile (foreign key), and order them by timestamp
         return messages
     
 class StatusMessage(models.Model):
