@@ -64,7 +64,7 @@ class CreateStatusMessageView(CreateView):
         # retrieve the PK from the URL pattern
         pk = self.kwargs['pk']
         # call reverse to generate the URL for this Profile
-        return reverse('profile', kwargs={'pk':pk})
+        return reverse('show_profile', kwargs={'pk':pk})
     
     def form_valid(self, form):
         '''This method handles the form submission and saves the 
