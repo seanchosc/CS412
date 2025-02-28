@@ -9,11 +9,11 @@ class CreateProfileForm(forms.ModelForm):
         fields = ['firstName', 'lastName', 'city', 'emailAddress', 'profileImageURL']
 
     # list of fields that this form should set (i.e., all of the data attributes of the Profile class) #
-    firstName = forms.CharField(required=True, name = "First name:") # person's first name attribute
-    lastName = forms.CharField(required=True, name = "Last name:") # person's last name attribute
-    city = forms.CharField(required=True, name = "City") # person's city attribute
-    emailAddress = forms.CharField(required=True, name = "Email address:") # person's email attribute
-    profileImageURL = forms.CharField(required=True, name = "Profile photo URL:") # person's profile image url attribute
+    firstName = forms.CharField(required=True, label = "First name:") # person's first name attribute
+    lastName = forms.CharField(required=True, label = "Last name:") # person's last name attribute
+    city = forms.CharField(required=True, label = "City") # person's city attribute
+    emailAddress = forms.CharField(required=True, label = "Email address:") # person's email attribute
+    profileImageURL = forms.CharField(required=True, label = "Profile photo URL:") # person's profile image url attribute
 
 class CreateStatusMessageForm(forms.ModelForm):
     '''A form to add a Status Message to the database'''
@@ -22,5 +22,5 @@ class CreateStatusMessageForm(forms.ModelForm):
         model = StatusMessage
         fields = ['message']
     # list of fields that this form should set #
-    message = forms.CharField(max_length=200, required=True, lanamebel = "Your new message:")
+    message = forms.CharField(max_length=200, required=True, label = "Your new message:")
 
