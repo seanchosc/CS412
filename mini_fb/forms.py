@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile, StatusMessages # Import models, StatusMessages 
+from .models import Profile, StatusMessage # Import models, StatusMessages 
 
 class CreateProfileForm(forms.ModelForm):
     ''' A form to create a Profile and add it to DB'''
@@ -19,7 +19,7 @@ class CreateStatusMessageForm(forms.ModelForm):
     '''A form to add a Status Message to the database'''
     class Meta:
         ''' associate this form with the StatusMessage model; select fields '''
-        model = StatusMessages
+        model = StatusMessage
         fields = ['message']
     # list of fields that this form should set #
     message = forms.CharField(max_length=200, required=True, lanamebel = "Your new message:")
