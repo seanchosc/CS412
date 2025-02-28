@@ -130,7 +130,7 @@ profile.featured {
     grid-column: span 4;
     display: grid; /* nested grid */
     gap: 60px;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: minmax(250px, 2fr) minmax(150px, 1fr); /* for when the profile image is too narrow so overall featured box gets too narrow*/
     align-items: center;
     border-bottom: 1px #bbc7c7;
     padding-bottom: 40px;
