@@ -36,4 +36,3 @@ class CreateProfileView(CreateView):
     '''
     form_class = CreateProfileForm # use the CreateProfileForm class in forms
     template_name = 'mini_fb/create_profile_form.html' # show create_profile_form template
-    context_object_name = 'form' # how to find the data in the template file
