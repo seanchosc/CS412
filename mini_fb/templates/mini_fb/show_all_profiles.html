@@ -30,7 +30,23 @@
                 <strong>{{ p.firstName }} {{ p.lastName }}</strong>
             </a>
             <br> <!-- new line -->
-            <span class="small">{{ p.city }}</span> <!-- city text styled-->        
+            <span class="small">{{ p.city }}</span> <!-- city text styled--> 
+            <br> <!-- new line -->
+            <div>
+                <h2> Status Messages </h2>
+                <!-- Status Messages:
+                {{p.get_status_messages}} -->
+            
+                {% for status_message in p.get_status_messages %}
+                <a>
+                    <div>
+                        <strong> {{status_message.message}} </strong>
+                        <p>
+                        at {{status_message.timestamp}}
+                        </p>
+                    </div>
+                </a>
+                {% endfor %}
         </h3>
         {% endfor %}
     </div>
