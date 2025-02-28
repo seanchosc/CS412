@@ -28,7 +28,7 @@ class Profile(models.Model):
     
     def get_absolute_url(self):
         '''Return the URL to display one instance of this model.'''
-        return reverse('profile', kwargs={'pk':self.pk})
+        return reverse('show_profile', kwargs={'pk':self.pk})
     
 class StatusMessage(models.Model):
     '''models the data attributes of Facebook status message'''
