@@ -6,7 +6,7 @@ class CreateProfileForm(forms.ModelForm):
     class Meta:
         '''associate this form with a model from our database.'''
         model = Profile
-        fields = ['firstName', 'lastName', 'city', 'emailAddress', 'profileImageURL']
+        fields = ['firstName', 'lastName', 'city', 'emailAddress', 'image_file'] # updated image field variable
 
     # list of fields that this form should set (i.e., all of the data attributes of the Profile class) #
     firstName = forms.CharField(required=True, label = "First name:") # person's first name attribute

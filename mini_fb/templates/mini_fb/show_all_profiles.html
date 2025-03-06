@@ -10,16 +10,16 @@
         <!-- loop to display all profiles -->
         {% for p in profiles %} <!-- for each profile-->
         <div class="crop">
-            {% if p.profileImageURL %}
+            {% if p.image_file.url %}
                 <!-- display profile photo -->
                 <a href="{% url 'show_profile' p.pk %}"> <!-- substituting in the primary key for each profile -->
                     <!-- implemented conditionals in case of static photos-->
                     {% if p.profileImageURL|slice:":5" == "https" %}
                     <!-- image starts with 'https') -->
-                    <img src="{{ p.profileImageURL }}" alt="Profile Photo">
+                    <img src="{{ p.image_file.url }}" alt="Profile Photo">
                     {% else %}
                     <!-- Local static image -->
-                    <img src="{% static 'images/mini_fb/' %}{{ p.profileImageURL }}" alt="Profile Photo">
+                    <img src="{% static 'images/mini_fb/' %}{{ p.image_file.url }}" alt="Profile Photo">
                 {% endif %}
                 </a>
             {% endif %}
