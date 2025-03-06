@@ -15,8 +15,8 @@ class Profile(models.Model):
     lastName = models.TextField(blank=False) # person's last name attribute
     city = models.TextField(blank=False) # person's city attribute
     emailAddress = models.TextField(blank=False) # person's email attribute
-    profileImageURL = models.TextField(blank=False) # person's profile image url attribute
-    
+    #profileImageURL = models.TextField(blank=False) # person's profile image url attribute
+    image_file = models.ImageField(blank=True) # NEW IMAGE FIELD (an actual image)
     def __str__(self):
         '''Return a string representation of this Profile object.'''
         return f'{self.firstName} {self.lastName}' # return as string their full name (no middle name attribute) 
