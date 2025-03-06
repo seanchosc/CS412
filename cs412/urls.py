@@ -16,10 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from django.conf.urls.static import static
+from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("quotes/", include("quotes.urls")), # NEW QUOTES APP PATH
     path("restaurant/", include("restaurant.urls")), # NEW RESTERAUNT APP PATH
     path("mini_fb/", include("mini_fb.urls")) # include the URLs from our mini_fb project's urls.py file
+    static(settings.STATIC_URL, document_root=settings.STATIC_ROOT), # include static
+    static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT), # include media 
 ]
+
