@@ -20,6 +20,8 @@ mini_fb/template/mini_fb/show_profile.html
             <!-- Local static image -->
             <img src="{% static 'images/mini_fb/' %}{{ profile.image_file.url }}" alt="Profile Photo">
             {% endif %}
+        {% else %}
+            <h3> No Image </h3>
         {% endif %}
         <div>
             <h2>{{ profile.firstName }} {{ profile.lastName }} </h2>

@@ -21,7 +21,8 @@
                     <!-- Local static image -->
                     <img src="{% static 'images/mini_fb/' %}{{ p.image_file.url }}" alt="Profile Photo">
                 {% endif %}
-                </a>
+            {% else %}
+                <h3> No Image </h3>
             {% endif %}
         </div>
         <!-- display full name -->
