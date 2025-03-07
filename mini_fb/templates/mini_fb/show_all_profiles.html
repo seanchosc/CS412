@@ -13,14 +13,7 @@
             {% if p.image_file %}
                 <!-- display profile photo -->
                 <a href="{% url 'show_profile' p.pk %}"> <!-- substituting in the primary key for each profile -->
-                    <!-- implemented conditionals in case of static photos-->
-                    {% if p.image_file.url|slice:":5" == "https" %}
-                    <!-- image starts with 'https') -->
                     <img src="{{ p.image_file.url }}" alt="Profile Photo">
-                    {% else %}
-                    <!-- Local static image -->
-                    <img src="{% static 'images/mini_fb/' %}{{ p.image_file.url }}" alt="Profile Photo">
-                {% endif %} 
             {% else %}
                 <h3> No Image </h3>
             {% endif %}

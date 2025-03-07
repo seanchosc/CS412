@@ -7,7 +7,8 @@
 <h1> Create a new profile! </h1>
 
 <!-- display the HTML form -->
-<form action="{% url 'create_profile' %}" method="POST">
+<form action="{% url 'create_profile' %}" method="POST"
+enctype="multipart/form-data">
     {% csrf_token %} <!-- token -->
     <table>
     {{form.as_table}} <!-- display form -->

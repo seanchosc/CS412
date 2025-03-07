@@ -12,14 +12,7 @@ mini_fb/template/mini_fb/show_profile.html
 <main class="grid">
     <profile class="featured">
         {% if profile.image_file %}
-            <!-- implemented conditionals in case of static photos-->
-            {% if profile.image_file.url|slice:":5" == "https" %}
-            <!-- image starts with 'https') -->
             <img src="{{ profile.image_file.url }}" alt="Profile Photo">
-            {% else %}
-            <!-- Local static image -->
-            <img src="{% static 'images/mini_fb/' %}{{ profile.image_file.url }}" alt="Profile Photo">
-            {% endif %}
         {% else %}
             <h3> No Image </h3>
         {% endif %}
@@ -46,6 +39,10 @@ mini_fb/template/mini_fb/show_profile.html
                         </span>
                     </div>
                 </a>
+                    <!-- for each image in status_message -->
+                    {% for image in status_message.get_images %}
+                    <img src="{{ image.image_file.url }}" alt="{{ 'status image' }}">
+                    {% endfor %}
                 {% endfor %}
                 <span class="small">
                     <h3><a href="{% url 'create_status' profile.pk %}">Write a status message</a></h3> <!-- new create status message functionality-->
