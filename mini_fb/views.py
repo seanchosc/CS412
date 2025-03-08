@@ -112,6 +112,7 @@ class CreateStatusMessageView(CreateView):
 
 class UpdateProfileView(UpdateView):
     ''' A view to update a Profile and save it to the database '''
+    model = Profile
     form_class = UpdateProfileForm #UpdateProfileForm class in forms.py
     template_name = 'mini_fb/update_profile_form.html' # show update_profile_form template
     def form_valid(self, form):
