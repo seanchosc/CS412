@@ -10,6 +10,7 @@
 
 <form method="POST">
     {% csrf_token %}
+    {{form.as_p}}
     <input type='submit' value="Update">
 </form>
 <form action="{% url 'show_profile' status_message.profile.pk %}" method='GET'>
