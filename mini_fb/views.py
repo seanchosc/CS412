@@ -3,8 +3,10 @@
 # Define the views for the blog app:
 from django.shortcuts import render
 from .models import Profile, Image, StatusImage # import Profile model
-from django.views.generic import ListView, DetailView, CreateView # ListView for Base and SAP, Detail for ShowProfile, CreateView for CreateProfileView
-from .forms import CreateProfileForm, CreateStatusMessageForm # Import the create profile and create status message forms from forms, 
+from django.views.generic import ListView, DetailView, CreateView, UpdateView 
+    # ListView for Base and SAP, Detail for ShowProfile, CreateView for CreateProfileView
+    # UpdateView for UpdateProfile
+from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm # Import the create profile, create status message, and update profile forms from forms, 
 from django.urls import reverse 
 
 # BASE VIEW
@@ -107,4 +109,15 @@ class CreateStatusMessageView(CreateView):
             status_image.save()
             print(f"StatusImage {status_image.id} saved")
         # delegate the work to the superclass method form_valid:
+        return super().form_valid(form)
+
+class UpdateProfileView(UpdateView):
+    ''' A view to update a Profile and save it to the database '''
+    form_class = UpdateProfileForm #UpdateProfileForm class in forms.py
+    template_name = 'mini_fb/update_profile_form.html' # show update_profile_form template
+    def form_valid(self, form):
+        '''
+        Handle the form submission to create a new Profile object.
+        '''
+        print(f'UpdateProfileView: form.cleaned_data={form.cleaned_data}')
         return super().form_valid(form)

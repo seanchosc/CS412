@@ -21,6 +21,11 @@ mini_fb/template/mini_fb/show_profile.html
             <span class="small">{{ profile.city }}</span> <!-- city text styled--> 
             <br> <!-- new line -->
             <span class="small">email: </span><a href="mailto:{{ profile.emailAddress }}">{{ profile.emailAddress }}</a> <!-- email route and text styled-->   
+            <!-- update this profile -->
+            <h3>
+                <a href="{% url 'update_profile' profile.pk %}">Update this profile</a>
+            </h3>
+            
             <br> <!-- new line -->
 
             <!-- NEW STATUS MESSAGE DISPLAY IMPLEMENTATION-->
