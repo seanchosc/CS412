@@ -147,7 +147,7 @@ class UpdateStatusMessageView(UpdateView):
     model = StatusMessage
     context_object_name = 'status_message'
     form_class = UpdateStatusMessageForm
-    
+
     def get_success_url(self):
         '''After updating, redirect to the associated profile.'''
         # get the pk for this comment
@@ -156,4 +156,4 @@ class UpdateStatusMessageView(UpdateView):
 
         # find the article to which this Comment is related by FK
         profile = status_message.profile
-        return reverse('show_profile', kwargs={'pk': self.profile.pk})
+        return reverse('show_profile', kwargs={'pk': profile.pk})
