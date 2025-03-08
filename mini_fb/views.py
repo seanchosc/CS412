@@ -133,10 +133,10 @@ class DeleteStatusMessageView(DeleteView):
 
         # get the pk for this comment
         pk = self.kwargs['pk']
-        message = StatusMessage.objects.get(pk=pk)
+        status_message = StatusMessage.objects.get(pk=pk)
 
         # find the article to which this Comment is related by FK
-        profile = message.profile
+        profile = status_message.profile
 
         # reverse to show the profile page
         return reverse('show_profile', kwargs={'pk':profile.pk})
