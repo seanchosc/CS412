@@ -41,6 +41,7 @@ mini_fb/template/mini_fb/show_profile.html
                         <span class="small"> <!-- minor styling -->
                             at {{status_message.timestamp}} <!-- display the timestamp -->
                             <a href="{% url 'delete_status' status_message.pk %}">Delete</a> <!-- NEW delete status message feature-->
+                            <a href="{% url 'update_status' status_message.pk %}">Update</a> <!-- NEW update status message feature-->
                         </span>
                     </div>
                 </a>
