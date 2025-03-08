@@ -13,7 +13,7 @@ urlpatterns = [
     path('profile/<int:pk>/create_status/',CreateStatusMessageView.as_view(), name='create_status' ), # show create status message view
     path('profile/<int:pk>/update', UpdateProfileView.as_view(), name="update_profile"), # show update profile view
     path('status/<int:pk>/delete/', DeleteStatusMessageView.as_view(), name='delete_status'), # show DeleteStatusMessage view
-    path('status/<int:pk>/update/', UpdateStatusMessageView.as_view(), name='update_status_message'), # show update status message view
-    
+    path('status/<int:pk>/update/', UpdateStatusMessageView.as_view(), name='update_status'), # show update status message view
+
 
 ]
