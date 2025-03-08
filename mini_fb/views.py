@@ -2,7 +2,7 @@
 # mini_fb/views.py
 # Define the views for the blog app:
 from django.shortcuts import render
-from .models import Profile # import Profile model
+from .models import Profile, Image, StatusImage # import Profile model
 from django.views.generic import ListView, DetailView, CreateView # ListView for Base and SAP, Detail for ShowProfile, CreateView for CreateProfileView
 from .forms import CreateProfileForm, CreateStatusMessageForm # Import the create profile and create status message forms from forms, 
 from django.urls import reverse 
@@ -43,6 +43,7 @@ class CreateProfileView(CreateView):
         Handle the form submission to create a new Article object.
         '''
         print(f'CreateProfileView: form.cleaned_data={form.cleaned_data}')
+
 		# delegate work to the superclass version of this method
         return super().form_valid(form)
 
@@ -90,5 +91,20 @@ class CreateStatusMessageView(CreateView):
         # attach this profile to the status message
         form.instance.profile = profile # set the FK
 
+        # save the status message to database
+        sm = form.save()
+        # read the file from the form:
+        files = self.request.FILES.getlist('files')
+
+        for file in files: # for each file
+            # Create an Image object, and set the file into the Image‘s ImageField attribute
+            image = Image(profile=profile, image_file=file)
+            image.save()
+            print(f"Image {image.id} saved")
+            # Create and save a StatusImage object that sets the foreign keys of the StatusMessage and the Image objects
+            status_image = StatusImage(image=image, status_message=sm)
+            # save the Image object to the database
+            status_image.save()
+            print(f"StatusImage {status_image.id} saved")
         # delegate the work to the superclass method form_valid:
         return super().form_valid(form)

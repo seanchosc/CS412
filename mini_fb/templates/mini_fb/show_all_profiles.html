@@ -13,7 +13,7 @@
             {% if p.image_file %}
                 <!-- display profile photo -->
                 <a href="{% url 'show_profile' p.pk %}"> <!-- substituting in the primary key for each profile -->
-                    <img src="{{ p.image_file.url }}" alt="Profile Photo">
+                    <img src="{{p.image_file.url}}" alt="Profile Photo">
             {% else %}
                 <h3> No Image </h3>
             {% endif %}

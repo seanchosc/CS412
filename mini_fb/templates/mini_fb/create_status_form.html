@@ -5,7 +5,7 @@
 
 <h2>New status message on {{profile}}'s profile! </h2>
 
-<form method = 'POST'>
+<form method = 'POST' enctype="multipart/form-data">
 <!-- token -->
 {% csrf_token %}
 
@@ -16,6 +16,10 @@
         <td>{{field}}</td>
     </tr>
     {% endfor %}
+    <tr>
+        <th>Post some images!</th>
+        <td><input type="file" name="files" multiple /></td>
+    </tr>
     <tr>
         <td></td>
         <td>
