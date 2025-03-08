@@ -22,9 +22,4 @@ class UpdateProfileForm(forms.ModelForm):
         model = Profile
         fields = ['city', 'emailAddress', 'image_file']
 
-class UpdateStatusMessageForm(forms.ModelForm):
-    '''A form to update a Status Message in the database'''
-    class Meta:
-        model = StatusMessage
-        fields = ['message']  # only updating the 'message' text
 

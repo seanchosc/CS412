@@ -143,11 +143,16 @@ class DeleteStatusMessageView(DeleteView):
     
 class UpdateStatusMessageView(UpdateView):
     '''A view to handle updating an existing StatusMessage.'''
-    model = StatusMessage
-    form_class = UpdateStatusMessageForm
     template_name = 'mini_fb/update_status_form.html'  # this template you'll create in the next step
+    model = StatusMessage
     context_object_name = 'status_message'
 
     def get_success_url(self):
         '''After updating, redirect to the associated profile.'''
-        return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
+        # get the pk for this comment
+        pk = self.kwargs['pk']
+        status_message = StatusMessage.objects.get(pk=pk)
+
+        # find the article to which this Comment is related by FK
+        profile = status_message.profile
+        return reverse('show_profile', kwargs={'pk': self.profile.pk})
