@@ -139,4 +139,4 @@ class DeleteStatusMessageView(DeleteView):
         profile = message.profile
 
         # reverse to show the profile page
-        return reverse('profile', kwargs={'pk':profile.pk})
+        return reverse('show_profile', kwargs={'pk':profile.pk})
