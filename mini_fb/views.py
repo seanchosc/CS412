@@ -5,7 +5,7 @@ from django.shortcuts import render
 from .models import Profile, Image, StatusImage, StatusMessage # import these models from models.py
 from django.views.generic import ListView, DetailView, CreateView # ListView for Base and SAP, Detail for ShowProfile, CreateView for CreateProfileView
 from django.views.generic.edit import UpdateView, DeleteView # UpdateView for UpdateProfileView, DeleteView for DeleteStatusMessageView
-from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm # Import the create profile, create status message, and update profile forms from forms, 
+from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm, UpdateStatusMessageForm # Import the create profile, create status message, and update profile forms from forms, 
 from django.urls import reverse 
 
 # BASE VIEW
@@ -140,3 +140,14 @@ class DeleteStatusMessageView(DeleteView):
 
         # reverse to show the profile page
         return reverse('show_profile', kwargs={'pk':profile.pk})
+    
+class UpdateStatusMessageView(UpdateView):
+    '''A view to handle updating an existing StatusMessage.'''
+    model = StatusMessage
+    form_class = UpdateStatusMessageForm
+    template_name = 'mini_fb/update_status_form.html'  # this template you'll create in the next step
+    context_object_name = 'status_message'
+
+    def get_success_url(self):
+        '''After updating, redirect to the associated profile.'''
+        return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
