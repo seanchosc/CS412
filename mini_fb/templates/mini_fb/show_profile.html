@@ -21,7 +21,7 @@ mini_fb/template/mini_fb/show_profile.html
             <span class="small">{{ profile.city }}</span> <!-- city text styled--> 
             <br> <!-- new line -->
             <span class="small">email: </span><a href="mailto:{{ profile.emailAddress }}">{{ profile.emailAddress }}</a> <!-- email route and text styled-->   
-            <br> <!-- new line-->
+            <br> <br> <!-- 2 new lines-->
             <!-- update this profile -->
             <span class="smmall"><a href="{% url 'update_profile' profile.pk %}">Update this profile</a>
             </span>
@@ -40,6 +40,7 @@ mini_fb/template/mini_fb/show_profile.html
                         <strong> {{status_message.message}} </strong> <!-- display the status message -->
                         <span class="small"> <!-- minor styling -->
                             at {{status_message.timestamp}} <!-- display the timestamp -->
+                            <a href="{% url 'delete_status' status_message.pk %}">Delete</a> <!-- NEW delete status message feature-->
                         </span>
                     </div>
                 </a>

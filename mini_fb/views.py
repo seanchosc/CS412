@@ -2,10 +2,9 @@
 # mini_fb/views.py
 # Define the views for the blog app:
 from django.shortcuts import render
-from .models import Profile, Image, StatusImage # import Profile model
-from django.views.generic import ListView, DetailView, CreateView, UpdateView 
-    # ListView for Base and SAP, Detail for ShowProfile, CreateView for CreateProfileView
-    # UpdateView for UpdateProfile
+from .models import Profile, Image, StatusImage, StatusMessage # import these models from models.py
+from django.views.generic import ListView, DetailView, CreateView # ListView for Base and SAP, Detail for ShowProfile, CreateView for CreateProfileView
+from django.views.generic.edit import UpdateView, DeleteView # UpdateView for UpdateProfileView, DeleteView for DeleteStatusMessageView
 from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm # Import the create profile, create status message, and update profile forms from forms, 
 from django.urls import reverse 
 
@@ -121,3 +120,23 @@ class UpdateProfileView(UpdateView):
         '''
         print(f'UpdateProfileView: form.cleaned_data={form.cleaned_data}')
         return super().form_valid(form)
+    
+class DeleteStatusMessageView(DeleteView):
+    '''A view to delete a status message and remove it from the database.'''
+
+    template_name = "mini_fb/delete_status_form.html" # show delete_status_form template
+    model = StatusMessage # use StatusMessage model
+    context_object_name = 'status_message' # set context variable as status_message
+
+    def get_success_url(self):
+        '''Provide a URL to redirect to after deleting a Status Message.'''
+
+        # get the pk for this comment
+        pk = self.kwargs['pk']
+        message = StatusMessage.objects.get(pk=pk)
+
+        # find the article to which this Comment is related by FK
+        profile = message.profile
+
+        # reverse to show the profile page
+        return reverse('profile', kwargs={'pk':profile.pk})
