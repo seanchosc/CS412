@@ -5,7 +5,7 @@ from django.shortcuts import render
 from .models import Profile, Image, StatusImage, StatusMessage # import these models from models.py
 from django.views.generic import ListView, DetailView, CreateView # ListView for Base and SAP, Detail for ShowProfile, CreateView for CreateProfileView
 from django.views.generic.edit import UpdateView, DeleteView # UpdateView for UpdateProfileView, DeleteView for DeleteStatusMessageView
-from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm, UpdateStatusMessageForm # Import the create profile, create status message, and update profile forms from forms, 
+from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm # Import the create profile, create status message, and update profile forms from forms, 
 from django.urls import reverse 
 
 # BASE VIEW
