@@ -1,9 +1,10 @@
 ## Create View
 # mini_fb/views.py
 # Define the views for the blog app:
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Profile, Image, StatusImage, StatusMessage # import these models from models.py
 from django.views.generic import ListView, DetailView, CreateView # ListView for Base and SAP, Detail for ShowProfile, CreateView for CreateProfileView
+from django.views.generic import View # For AddFriendView
 from django.views.generic.edit import UpdateView, DeleteView # UpdateView for UpdateProfileView, DeleteView for DeleteStatusMessageView
 from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm, UpdateStatusMessageForm # Import the create profile, create status message, and update profile forms from forms, 
 from django.urls import reverse 
@@ -158,3 +159,25 @@ class UpdateStatusMessageView(UpdateView):
         # find the article to which this Comment is related by FK
         profile = status_message.profile
         return reverse('show_profile', kwargs={'pk': profile.pk})
+
+class AddFriendView(View):
+    ''' A view to handle adding a friend'''
+    def dispatch(self, request, *args, **kwargs):
+        ''' we can read the URL parameters (from self.kwargs), use the object manager 
+        to find the requisite Profile objects, and then call 
+        the Profile‘s add_friend method (from step 2). 
+        Finally, we can redirect the user back to the profile page'''
+
+        # read the URL paramters
+        pk = self.kwargs['pk']
+        other_pk = self.kwargs['other_pk']
+
+        # find the requisite Profile objects
+        profile = Profile.objects.get(pk=pk)
+        other_profile = Profile.objects.get(pk=other_pk)
+
+        # call the Profile's add_friend method
+        profile.add_friend(other_profile)
+
+        # redirect the user back to the profile page
+        return redirect(reverse('show_profile', kwargs={'pk': pk}))

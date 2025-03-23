@@ -4,6 +4,7 @@
 from django.urls import path
 from .views import ShowAllProfilesView, BaseView, ShowProfilePageView, CreateProfileView, CreateStatusMessageView # our view class definition 
 from .views import UpdateProfileView, DeleteStatusMessageView, UpdateStatusMessageView # updateprofileview, DeleteStatusMessageView, in views
+from .views import AddFriendView #import AddFriendView
 urlpatterns = [
     # map the URL (empty string) to the view
     path('', BaseView.as_view(), name='base'), # base view
@@ -14,6 +15,5 @@ urlpatterns = [
     path('profile/<int:pk>/update', UpdateProfileView.as_view(), name="update_profile"), # show update profile view
     path('status/<int:pk>/delete/', DeleteStatusMessageView.as_view(), name='delete_status'), # show DeleteStatusMessage view
     path('status/<int:pk>/update/', UpdateStatusMessageView.as_view(), name='update_status'), # show update status message view
-
-
+    path('profile/<int:pk>/add_friend/<int:other_pk>/', AddFriendView.as_view(), name='add_friend') # show add friend view
 ]

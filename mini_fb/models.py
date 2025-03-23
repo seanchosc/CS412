@@ -40,6 +40,16 @@ class Profile(models.Model):
         for friend in friends2: # for each friendship
             friends.append(friend.profile1) # self is profile2
         return friends
+    def add_friend(self, other):
+        ''' takes a paramter other, which refers to another Profile instance, and adds a Friend relation with self'''
+        if other == self:   # dont want to friend yourself
+            return "Error: Can't friend yourself."
+        friends1 = Friend.objects.filter(profile1=self, profile2=other)
+        friends2 = Friend.objects.filter(profile1=other, profile2=self)
+        if (friends1.count() == 0) and (friends2.count() == 0):
+            Friend.objects.create(profile1=self, profile2=other)
+        else:
+            return "Error: Already friends."
 class StatusMessage(models.Model):
     '''models the data attributes of Facebook status message'''
     timestamp = models.DateTimeField(auto_now=True) # the time at which this status message was created/saved
