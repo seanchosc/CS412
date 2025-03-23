@@ -53,3 +53,12 @@ class StatusImage(models.Model):
     image = models.ForeignKey("Image", on_delete=models.CASCADE) # Images that relate to a StatusMessage
     status_message = models.ForeignKey("StatusMessage", on_delete=models.CASCADE) # StatusMessage to which an Image is related
 
+class Friend(models.Model):
+    ''' encapsulates the idea of an edge connecting two nodes 
+    within the social network (e.g., two Profiles that are friends with each other)'''
+    profile1 = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name="profile1") # first person that relates to a Friend relationship
+    profile2 = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name="profile2") # second person that relates to a Friend relationship
+    timestamp = models.DateTimeField(auto_now_add=True) # timestamp of when the friend relationship was created    
+    def __str__(self):
+        '''view this relationship as a string representation'''
+        return f"{self.profile1} and {self.profile2} are friends"
