@@ -54,33 +54,6 @@ mini_fb/template/mini_fb/show_profile.html
                     <h3><a href="{% url 'create_status' profile.pk %}">Write a status message</a></h3> <!-- new create status message functionality-->
                 </span>
             </div>
-                        <!-- NEW STATUS MESSAGE DISPLAY IMPLEMENTATION-->
-            <div> 
-                <h3> Status Messages: </h3> 
-                <!-- Status Messages:
-                {{profile.get_status_messages}} -->
-                {% for status_message in profile.get_status_messages %} 
-                <!-- for each status message obtained 
-                from each profile objects message getter method -->
-                <a>
-                    <div>
-                        <strong> {{status_message.message}} </strong> <!-- display the status message -->
-                        <span class="small"> <!-- minor styling -->
-                            at {{status_message.timestamp}} <!-- display the timestamp -->
-                            <a href="{% url 'delete_status' status_message.pk %}">Delete</a> <!-- NEW delete status message feature-->
-                            <a href="{% url 'update_status' status_message.pk %}">Update</a> <!-- NEW update status message feature-->
-                        </span>
-                    </div>
-                </a>
-                    <!-- for each image in status_message -->
-                    {% for image in status_message.get_images %}
-                    <img src="{{ image.image_file.url }}" alt="{{ 'status image' }}">
-                    {% endfor %}
-                {% endfor %}
-                <span class="small">
-                    <h3><a href="{% url 'create_status' profile.pk %}">Write a status message</a></h3> <!-- new create status message functionality-->
-                </span>
-            </div>
             <!-- NEW FRIENDS DISPLAY IMPLEMENTATION-->
             <div> 
                 <h3> Friends: </h3> 
@@ -94,11 +67,13 @@ mini_fb/template/mini_fb/show_profile.html
                         <div>
                             <!-- display the friend -->
                             <a href="{% url 'show_profile' friend.pk %}">
-                                {{ friend.firstName }} {{ friend.lastName }}
+                                {% if friend.image_file %} <!-- display the friends photo if they have one -->
+                                    <img src="{{ friend.image_file.url }}" style="max-width: 50px; height: auto;"> <!-- photo with styling -->
+                                {% else %}
+                                    <p> No Photo </p>
+                                {% endif %}
+                                {{ friend.firstName }} {{ friend.lastName }} <!-- the friend's name -->
                             </a>
-                            <span class="small"> <!-- minor styling -->
-                                Became friends on {{friend.timestamp}} <!-- display the timestamp of friendship creation -->
-                            </span>
                         </div>
                     </a>
                     {% endfor %}
