@@ -9,3 +9,6 @@ admin.site.register(Profile) # register Profile
 
 from.models import StatusMessage # import StatusMessage model
 admin.site.register(StatusMessage) # register StatusMessage
+
+from.models import Friend # import Friend model
+admin.site.register(Friend) # register Friend
