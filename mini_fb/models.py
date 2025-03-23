@@ -29,7 +29,17 @@ class Profile(models.Model):
     def get_absolute_url(self):
         '''Return the URL to display one instance of this model.'''
         return reverse('show_profile', kwargs={'pk':self.pk})
-    
+    def get_friends(self):
+        '''return a list of friend's profiles'''
+        friends1 = Friend.objects.filter(profile1=self)    # get friends for profile1
+        friends2 = Friend.objects.filter(profile2=self) # get fruebds for profile2
+        friends = []    # friends list
+
+        for friend in friends1: # for each friendship
+            friends.append(friend.profile2) # self is profile1
+        for friend in friends2: # for each friendship
+            friends.append(friend.profile1) # self is profile2
+        return friends
 class StatusMessage(models.Model):
     '''models the data attributes of Facebook status message'''
     timestamp = models.DateTimeField(auto_now=True) # the time at which this status message was created/saved
