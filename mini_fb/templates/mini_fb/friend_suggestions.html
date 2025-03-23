@@ -1,0 +1,42 @@
+<!-- templates/friend_suggestions.html -->
+{% extends 'mini_fb/base.html' %}
+{% load static %}
+{% bloock content %}
+
+<div class="main">
+    <!-- link to go back to profile-->
+    <a href="{{profile.get_absolute_url}}"> Back to {{ profile.firstName }}'s Page </a>
+    <div class="grid">
+        <!-- suggested friends for profile-->
+        <h3> Suggested friends for {{ profile.firstName }}:</h3>
+    </div>
+    
+    <!-- show friends in grid container-->
+    <div class="grid">
+        <!-- loop to display each suggested friend -->
+        {% for friend in friends %}
+            <div class="grid">
+                <!-- if the suggested friend has a profile phhoto-->
+                {% if friend.image_file %}
+                    <a href="{% url 'show_profile' friend.pk %}"> <!-- the suggested friendsprofile -->
+                        <img src="{{friend.image_file.url}}" alt="Profile Photo"> <!-- their photo -->
+                        <div class="crop"> <!-- their name-->
+                            {{friend.firstName}} {{friend.lastName}}
+                        </div>
+                    </a>
+                    <!-- add friend button -->
+                    <a href="{% url 'add_friend' profile.pk friend.pk %}"> Add Friend </a>
+                <!-- the suggested friend does not have a profile phhoto-->
+                {% else %}
+                    <p> No Profile Photo</p>
+                    <!-- their name-->
+                    <div class="crop">
+                        {{friend.firstName}} {{friend.lastName}}
+                    </div>
+                    <!-- add friend button -->
+                    <a href="{% url 'add_friend' profile.pk friend.pk %}"> Add Friend </a>
+                {% endif %}
+            </div>
+        {% endfor }
+    </div>
+</div>

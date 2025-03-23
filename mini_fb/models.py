@@ -46,10 +46,21 @@ class Profile(models.Model):
             return "Error: Can't friend yourself."
         friends1 = Friend.objects.filter(profile1=self, profile2=other)
         friends2 = Friend.objects.filter(profile1=other, profile2=self)
-        if (friends1.count() == 0) and (friends2.count() == 0):
+        if (friends1.count() == 0) and (friends2.count() == 0): # if not friends with each other already
             Friend.objects.create(profile1=self, profile2=other)
         else:
             return "Error: Already friends."
+        
+    def get_friend_suggestions(self):
+        ''' returns a list (or QuerySet) of possible friends for a Profile '''
+        friends = self.get_friends()    # current friends
+        friends_pk = [friend.pk for friend in friends] # list of each friends pk
+
+        # suggested friends excludes people already friends and the self profile
+        suggested_friends = Profile.objects.exclude(pk=self.pk).exclude(pk__in=friends_pk)
+
+        return suggested_friends
+
 class StatusMessage(models.Model):
     '''models the data attributes of Facebook status message'''
     timestamp = models.DateTimeField(auto_now=True) # the time at which this status message was created/saved
