@@ -9,7 +9,7 @@
     <div class="news-feed">
         {% for message in news_feed %} <!-- for each status message in the feed -->
             <div class="news_feed_profile_img"> 
-                <span>{{ message.profile.firstName }} {{ message.profile.lastName }}</span> <!-- teir name-->
+                <strong>{{ message.profile.firstName }} {{ message.profile.lastName }}</strong> <!-- teir name-->
                 <br>
                 <a href="{% url 'show_profile' message.profile.pk %}">
                     {% if message.profile.image_file %} <!-- if the person has a photo -->
