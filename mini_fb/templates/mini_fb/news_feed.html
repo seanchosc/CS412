@@ -6,9 +6,8 @@
     <!-- link to go back to profile-->
     <a href="{{profile.get_absolute_url}}"> Back to {{ profile.firstName }}'s Page </a>
     <h1>{{profile.firstName}}'s Feed</h1>
-    
     <div class="news-feed">
-        {% for message in news_feed_ordered %} <!-- for each status message in the feed -->
+        {% for message in news_feed %} <!-- for each status message in the feed -->
             <div class="news_feed_profile_img"> 
                 <a href="{% url 'show_profile' message.profile.pk %}">
                     {% if message.profile.image_file %} <!-- if the person has a photo -->
