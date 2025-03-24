@@ -14,6 +14,7 @@ a:link,  a:visited {
     border: 4px;
     padding: 4px;
     margin : 1px;
+    border-radius: 8px;
 }
 
 ul, li {
