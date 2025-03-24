@@ -21,6 +21,7 @@
                     <a href="{% url 'show_profile' friend.pk %}"> <!-- the suggested friendsprofile -->
                         <img src="{{friend.image_file.url}}" alt="Profile Photo"> <!-- their photo -->
                     </a>
+                    <br>
                     <strong>
                         <!-- their name-->
                         {{friend.firstName}} {{friend.lastName}}
@@ -30,6 +31,7 @@
                 <!-- the suggested friend does not have a profile phhoto-->
                 {% else %}
                     <p> No Profile Photo</p>
+                    <br>
                     <strong>
                         <!-- their name-->
                         {{friend.firstName}} {{friend.lastName}}
