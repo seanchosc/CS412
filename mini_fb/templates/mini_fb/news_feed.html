@@ -1,0 +1,30 @@
+{% extends 'mini_fb/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="main">
+    <!-- link to go back to profile-->
+    <a href="{{profile.get_absolute_url}}"> Back to {{ profile.firstName }}'s Page </a>
+    <h1>{{profile.firstName}}'s Feed</h1>
+    
+    <div class="news-feed">
+        {% for message in news_feed_ordered %} <!-- for each status message in the feed -->
+            <div class="news_feed_profile_img"> 
+                <a href="{% url 'show_profile' message.profile.pk %}">
+                    {% if message.profile.image_file %} <!-- if the person has a photo -->
+                        <img src="{{ message.profile.image_file.url }}" style="max-width:50px; height:auto;">
+                    {% else %} <!-- the person doesnt hahve a photo-->
+                        <p> No Profile Photo</p>>
+                    {% endif %}
+                    <span>{{ message.profile.firstName }} {{ message.profile.lastName }}</span> <!-- teir name-->
+                </a>
+                <div>
+                    <p>{{ message.message }}</p> <!-- the message-->
+                    <span class="small"> posted at {{ message.timestamp }}.</span> <!-- the timestamp-->
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

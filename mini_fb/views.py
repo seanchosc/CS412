@@ -183,9 +183,9 @@ class AddFriendView(View):
         return redirect(reverse('show_profile', kwargs={'pk': pk}))
 class ShowFriendSuggestionsView(DetailView):
     ''' view for showing friend suggestions '''
-    model = Profile
-    template_name = "mini_fb/friend_suggestions.html"
-    context_object_name = 'profile'
+    model = Profile # retrieve objects of type Profile from the database
+    template_name = "mini_fb/friend_suggestions.html" #friend_suggestion.html template
+    context_object_name = 'profile' # how to find the data in the template file
     def get_context_data(self, **kwargs):
         '''Return the dictionary of context variables for use in the template.'''
 
@@ -202,4 +202,17 @@ class ShowFriendSuggestionsView(DetailView):
 
         # add friend suggestions to context
         context['friends'] = profile.get_friend_suggestions()
+        return context
+class ShowNewsFeedView(DetailView):
+    ''' view for showing news feed'''
+    model = Profile # retrieve objects of type Profile from the database
+    template_name = 'mini_fb/news_feed.html' #news_feed.html template
+    context_object_name = 'profile' # how to find the data in the template file
+    
+    def get_context_data(self, **kwargs):
+        '''Return the dictionary of context variables for use in the template.'''
+        context = super().get_context_data(**kwargs)  # calling the superclass method
+        profile = self.get_object() # retrieve the self object
+        # add news feed to context
+        context['news_feed'] = profile.get_news_feed()
         return context

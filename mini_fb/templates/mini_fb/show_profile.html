@@ -82,7 +82,11 @@ mini_fb/template/mini_fb/show_profile.html
                 {% endif %}
                 <h3>
                     <!-- Friend suggestions page button -->
-                    <a href="{% url 'friend_suggestions' profile.pk %}" class="button">Friend Suggestions</a>
+                    <a href="{% url 'friend_suggestions' profile.pk %}">Friend Suggestions</a>
+                </h3>
+                <h3>
+                    <!-- Show news feed button -->
+                    <a href="{% url 'news_feed' profile.pk %}">Feed</a>
                 </h3>
             </div>
         </div>

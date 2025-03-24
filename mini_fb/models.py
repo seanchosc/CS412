@@ -61,6 +61,15 @@ class Profile(models.Model):
 
         return suggested_friends
 
+    def get_news_feed(self):
+        ''' returns a list (or QuerySet) of all StatusMessages for the profile on which 
+        the method was called, as well as all of the friends of that profile.'''
+
+        friends = self.get_friends() # list of friend Profile objects
+        total = [self] + friends # self profile + friend profiles
+        news_feed = StatusMessage.objects.filter(profile__in=total)
+        news_feed_ordered = news_feed.order_by('-timestamp')
+        return news_feed_ordered
 class StatusMessage(models.Model):
     '''models the data attributes of Facebook status message'''
     timestamp = models.DateTimeField(auto_now=True) # the time at which this status message was created/saved
