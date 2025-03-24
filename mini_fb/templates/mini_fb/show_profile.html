@@ -80,6 +80,10 @@ mini_fb/template/mini_fb/show_profile.html
                     {% else %}
                     <p> This person has no friends. </p>
                 {% endif %}
+                <h3>
+                    <!-- Friend suggestions page button -->
+                    <a href="{% url 'friend_suggestions' profile.pk %}" class="button">Friend Suggestions</a>
+                </h3>
             </div>
         </div>
     </profile>
