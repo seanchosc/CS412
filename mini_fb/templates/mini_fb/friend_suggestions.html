@@ -15,30 +15,28 @@
     <div class="grid">
         <!-- loop to display each suggested friend -->
         {% for friend in friends %}
-            <div class="profile-container">
-                <div>
-                    <!-- if the suggested friend has a profile phhoto-->
-                    {% if friend.image_file %}
-                        <a href="{% url 'show_profile' friend.pk %}"> <!-- the suggested friendsprofile -->
-                            <img src="{{friend.image_file.url}}" alt="Profile Photo"> <!-- their photo -->
-                            <strong>
-                                <!-- their name-->
-                                {{friend.firstName}} {{friend.lastName}}
-                            </strong> <!-- their name-->
-                        </a>
-                        <!-- add friend button -->
-                        <a href="{% url 'add_friend' profile.pk friend.pk %}"> Add Friend </a>
-                    <!-- the suggested friend does not have a profile phhoto-->
-                    {% else %}
-                        <p> No Profile Photo</p>
+            <div>
+                <!-- if the suggested friend has a profile phhoto-->
+                {% if friend.image_file %}
+                    <a href="{% url 'show_profile' friend.pk %}"> <!-- the suggested friendsprofile -->
+                        <img src="{{friend.image_file.url}}" alt="Profile Photo"> <!-- their photo -->
                         <strong>
                             <!-- their name-->
                             {{friend.firstName}} {{friend.lastName}}
                         </strong> <!-- their name-->
-                        <!-- add friend button -->
-                        <a href="{% url 'add_friend' profile.pk friend.pk %}"> Add Friend </a>
-                    {% endif %}                    
-                </div>
+                    </a>
+                    <!-- add friend button -->
+                    <a href="{% url 'add_friend' profile.pk friend.pk %}"> Add Friend </a>
+                <!-- the suggested friend does not have a profile phhoto-->
+                {% else %}
+                    <p> No Profile Photo</p>
+                    <strong>
+                        <!-- their name-->
+                        {{friend.firstName}} {{friend.lastName}}
+                    </strong> <!-- their name-->
+                    <!-- add friend button -->
+                    <a href="{% url 'add_friend' profile.pk friend.pk %}"> Add Friend </a>
+                {% endif %}                    
             </div>
         {% endfor %}
     </div>
