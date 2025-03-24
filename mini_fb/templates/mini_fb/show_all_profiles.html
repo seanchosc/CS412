@@ -14,6 +14,7 @@
                 <!-- display profile photo -->
                 <a href="{% url 'show_profile' p.pk %}"> <!-- substituting in the primary key for each profile -->
                     <img src="{{p.image_file.url}}" alt="Profile Photo">
+                </a>
             {% else %}
                 <h3> No Image </h3>
             {% endif %}
