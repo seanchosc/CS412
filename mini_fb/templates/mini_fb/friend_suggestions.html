@@ -16,7 +16,7 @@
         <!-- loop to display each suggested friend -->
         {% for friend in friends %}
             <div class="profile-container">
-                <div class="crop">
+                <div>
                     <!-- if the suggested friend has a profile phhoto-->
                     {% if friend.image_file %}
                         <a href="{% url 'show_profile' friend.pk %}"> <!-- the suggested friendsprofile -->
