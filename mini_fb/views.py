@@ -186,16 +186,16 @@ class ShowFriendSuggestionsView(DetailView):
     model = Profile
     template_name = "mini_fb/friend_suggestions.html"
     context_object_name = 'profile'
-    def get_context_data(self):
+    def get_context_data(self, **kwargs):
         '''Return the dictionary of context variables for use in the template.'''
 
         # calling the superclass method
-        context = super().get_context_data()
+        context = super().get_context_data(**kwargs)
 
         # find/add the profile to the context data
         # retrieve the PK from the URL pattern
         pk = self.kwargs['pk']
-        profile = Profile.objects.get(pk=pk)
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
 
         # add this profile into the context dictionary:
         context['profile'] = profile
