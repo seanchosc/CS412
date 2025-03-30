@@ -2,9 +2,8 @@
 # mini_fb/urls.py
 
 from django.urls import path
-from .views import ShowAllProfilesView, BaseView, ShowProfilePageView, CreateProfileView, CreateStatusMessageView # our view class definition 
-from .views import UpdateProfileView, DeleteStatusMessageView, UpdateStatusMessageView # updateprofileview, DeleteStatusMessageView, in views
-from .views import AddFriendView, ShowFriendSuggestionsView, ShowNewsFeedView #Assignment 8
+from django.contrib.auth import views as auth_views    ## NEW
+from .views import * # import everything from views
 urlpatterns = [
     # map the URL (empty string) to the view
     path('', BaseView.as_view(), name='base'), # base view
@@ -18,4 +17,6 @@ urlpatterns = [
     path('profile/<int:pk>/add_friend/<int:other_pk>/', AddFriendView.as_view(), name='add_friend'), # show add friend view
     path('profile/<int:pk>/friend_suggestions/', ShowFriendSuggestionsView.as_view(), name='friend_suggestions'), #show ShowFriendSuggestionsView
     path('profile/<int:pk>/news_feed/', ShowNewsFeedView.as_view(), name='news_feed'), # show news feed view
+    path('login/', auth_views.LoginView.as_view(template_name='mini_fb/login.html'), name='login'), ## show login template when logging in
+	path('logout/', auth_views.LogoutView.as_view(next_page='show_all'), name='logout'), ## show show all template when logging out
 ]
