@@ -37,7 +37,7 @@ class ShowProfilePageView(DetailView):
     model = Profile # retrieve objects of type Profile from the database
     template_name = 'mini_fb/show_profile.html' # show_profile_page template
     context_object_name = 'profile' # how to find the data in the template file
-
+    
 ### Create Profile View ###
 class CreateProfileView(LoginRequiredMixin, CreateView):
     '''A view to handle creation of a new Profile.
@@ -53,9 +53,16 @@ class CreateProfileView(LoginRequiredMixin, CreateView):
         return reverse('login') 
     def form_valid(self, form):
         '''
-        Handle the form submission to create a new Article object.
+        Handle the form submission to create a new Profile object.
         '''
         print(f'CreateProfileView: form.cleaned_data={form.cleaned_data}')
+
+        # find the logged in user
+        user = self.request.user
+        print(f"CreateProfileView user={user} profile.user={user}")
+
+        # attach user to form instance (Profile object):
+        form.instance.user = user
 
 		# delegate work to the superclass version of this method
         return super().form_valid(form)
@@ -101,6 +108,13 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
 		# instrument our code to display form fields: 
         print(f"CreateStatusMessageView.form_valid: form.cleaned_data={form.cleaned_data}")
         
+        # find the logged in user
+        user = self.request.user
+        print(f"CreateStatusMessageView user={user} profile.user={user}")
+
+        # attach user to form instance (Profile object):
+        form.instance.user = user
+
         # retrieve the PK from the URL pattern
         pk = self.kwargs['pk']
         profile = Profile.objects.get(pk=pk)
@@ -125,7 +139,7 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
         # delegate the work to the superclass method form_valid:
         return super().form_valid(form)
 
-class UpdateProfileView(UpdateView):
+class UpdateProfileView(LoginRequiredMixin, UpdateView):
     ''' A view to update a Profile and save it to the database '''
     model = Profile
     form_class = UpdateProfileForm #UpdateProfileForm class in forms.py
@@ -135,9 +149,17 @@ class UpdateProfileView(UpdateView):
         return reverse('login') 
     def form_valid(self, form):
         '''
-        Handle the form submission to create a new Profile object.
+        Handle the form submission to update a Profile object.
         '''
         print(f'UpdateProfileView: form.cleaned_data={form.cleaned_data}')
+                
+        # find the logged in user
+        user = self.request.user
+        print(f"UpdateProfileView user={user} profile.user={user}")
+
+        # attach user to form instance (Profile object):
+        form.instance.user = user
+        
         return super().form_valid(form)
     
 class DeleteStatusMessageView(LoginRequiredMixin, DeleteView):
@@ -180,7 +202,20 @@ class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
         # find the article to which this Comment is related by FK
         profile = status_message.profile
         return reverse('show_profile', kwargs={'pk': profile.pk})
+    def form_valid(self, form):
+        '''
+        Handle the form submission to update a StatusMessage object.
+        '''
+        print(f'UpdateStatusMessageView: form.cleaned_data={form.cleaned_data}')
+                
+        # find the logged in user
+        user = self.request.user
+        print(f"UpdateStatusMessageView user={user} profile.user={user}")
 
+        # attach user to form instance (Profile object):
+        form.instance.user = user
+        
+        return super().form_valid(form)
 class AddFriendView(LoginRequiredMixin, View):
     ''' A view to handle adding a friend'''
     def get_login_url(self) -> str:
@@ -205,11 +240,14 @@ class AddFriendView(LoginRequiredMixin, View):
 
         # redirect the user back to the profile page
         return redirect(reverse('show_profile', kwargs={'pk': pk}))
-class ShowFriendSuggestionsView(DetailView):
+class ShowFriendSuggestionsView(LoginRequiredMixin, DetailView):
     ''' view for showing friend suggestions '''
     model = Profile # retrieve objects of type Profile from the database
     template_name = "mini_fb/friend_suggestions.html" #friend_suggestion.html template
     context_object_name = 'profile' # how to find the data in the template file
+    def get_login_url(self) -> str:
+        '''return the URL required for login'''
+        return reverse('login') 
     def get_context_data(self, **kwargs):
         '''Return the dictionary of context variables for use in the template.'''
 

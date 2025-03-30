@@ -18,5 +18,5 @@ urlpatterns = [
     path('profile/<int:pk>/friend_suggestions/', ShowFriendSuggestionsView.as_view(), name='friend_suggestions'), #show ShowFriendSuggestionsView
     path('profile/<int:pk>/news_feed/', ShowNewsFeedView.as_view(), name='news_feed'), # show news feed view
     path('login/', auth_views.LoginView.as_view(template_name='mini_fb/login.html'), name='login'), ## show login template when logging in
-	path('logout/', auth_views.LogoutView.as_view(next_page='mini_fb/show_all'), name='logout'), ## show show all template when logging out
+	path('logout/', auth_views.LogoutView.as_view(), name='logout'), ## NEW show logout template when logging out
 ]
