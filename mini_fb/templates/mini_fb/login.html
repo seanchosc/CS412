@@ -17,5 +17,7 @@
     <input type="hidden" name="next" value="{% url 'show_all_profiles' %}">
     {% endif %}
 </form>
+<hr>
+Don't have an account? Create one here: <span class ="small"> <a href="{% url 'register' %}">Register</a></span>
 
 {% endblock %}

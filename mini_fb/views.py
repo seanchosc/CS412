@@ -8,9 +8,13 @@ from django.views.generic import View # For AddFriendView
 from django.views.generic.edit import UpdateView, DeleteView # UpdateView for UpdateProfileView, DeleteView for DeleteStatusMessageView
 from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm, UpdateStatusMessageForm # Import the create profile, create status message, and update profile forms from forms, 
 from django.urls import reverse 
-
+# Assignment 9
 from django.contrib.auth.mixins import LoginRequiredMixin ## NEW for requiring user to be logged in
 from django.views.generic import TemplateView # For logout confirmation redirect page
+from django.contrib.auth.forms import UserCreationForm ## NEW
+from django.contrib.auth.models import User ## NEW
+from django.contrib.auth import login # NEW
+
 # BASE VIEW
 class BaseView(ListView):
     model = Profile # retrieve objects of type Profile from the database
@@ -338,3 +342,11 @@ class ShowNewsFeedView(DetailView):
 class LogoutRedirectView(TemplateView):
     ''' View for being redirected to logout confirmation page'''
     template_name = 'mini_fb/logged_out.html' ## show the logged_out template 
+class UserRegistrationView(CreateView):
+    '''A view to show/process the registration form to create a new User.'''
+    template_name = 'mini_fb/register.html' # show the register template
+    form_class = UserCreationForm # use the imported UserCreationForm class
+    model = User # use the import User model
+    def get_success_url(self):
+        '''The URL to redirect to after creating a new User.'''
+        return reverse('login')

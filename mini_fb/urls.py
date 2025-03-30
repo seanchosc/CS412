@@ -20,4 +20,5 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='mini_fb/login.html'), name='login'), ## show login template when logging in
 	path('logout/', auth_views.LogoutView.as_view(next_page='logout_confirmation'), name='logout'), ## NEW show view at logout_confirmation when logging out
     path('logout_confirmation/', LogoutRedirectView.as_view(), name='logout_confirmation'), ## show the LogoutRedirect view when redirected after logout
+    path('register/', UserRegistrationView.as_view(), name='register'), ## Show the Registration view
 ]
