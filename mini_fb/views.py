@@ -8,7 +8,7 @@ from django.views.generic import View # For AddFriendView
 from django.views.generic.edit import UpdateView, DeleteView # UpdateView for UpdateProfileView, DeleteView for DeleteStatusMessageView
 from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm, UpdateStatusMessageForm # Import the create profile, create status message, and update profile forms from forms, 
 from django.urls import reverse 
-
+from django.contrib.auth.mixins import LoginRequiredMixin ## NEW for requiring user to be logged in
 # BASE VIEW
 class BaseView(ListView):
     model = Profile # retrieve objects of type Profile from the database
@@ -21,7 +21,14 @@ class ShowAllProfilesView(ListView):
     model = Profile # retrieve objects of type Profile from the database
     template_name = 'mini_fb/show_all_profiles.html' # show_all_profiles template
     context_object_name = 'profiles' # how to find the data in the template file
-
+    def dispatch(self, request, *args, **kwargs):
+        '''Override the dispatch method to add debugging information.'''
+        if request.user.is_authenticated:
+            print(f'ShowAllView.dispatch(): request.user={request.user}')
+        else:
+            print(f'ShowAllView.dispatch(): not logged in.')
+        return super().dispatch(request, *args, **kwargs)
+    
 ### Create DetailView to show one Profile by its PK:
 # mini_fb/views.py
 #SHOW PROFILE PAGE VIEW:
@@ -32,7 +39,7 @@ class ShowProfilePageView(DetailView):
     context_object_name = 'profile' # how to find the data in the template file
 
 ### Create Profile View ###
-class CreateProfileView(CreateView):
+class CreateProfileView(LoginRequiredMixin, CreateView):
     '''A view to handle creation of a new Profile.
     (1) display the HTML form to user (GET)
     (2) process the form submission and store the new Profile object (POST)
@@ -40,6 +47,10 @@ class CreateProfileView(CreateView):
     form_class = CreateProfileForm # use the CreateProfileForm class in forms
     template_name = 'mini_fb/create_profile_form.html' # show create_profile_form template
     context_object_name = 'form' # how to find the data in the template file
+    
+    def get_login_url(self) -> str:
+        '''return the URL required for login'''
+        return reverse('login') 
     def form_valid(self, form):
         '''
         Handle the form submission to create a new Article object.
@@ -50,10 +61,13 @@ class CreateProfileView(CreateView):
         return super().form_valid(form)
 
 
-class CreateStatusMessageView(CreateView):
+class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     '''A view to create a new status message and save it to the database.'''
     form_class = CreateStatusMessageForm
     template_name = 'mini_fb/create_status_form.html' # show create status form template
+    def get_login_url(self) -> str:
+        '''return the URL required for login'''
+        return reverse('login') 
     def get_context_data(self):
         '''Return the dictionary of context variables for use in the template.'''
 
@@ -116,6 +130,9 @@ class UpdateProfileView(UpdateView):
     model = Profile
     form_class = UpdateProfileForm #UpdateProfileForm class in forms.py
     template_name = 'mini_fb/update_profile_form.html' # show update_profile_form template
+    def get_login_url(self) -> str:
+        '''return the URL required for login'''
+        return reverse('login') 
     def form_valid(self, form):
         '''
         Handle the form submission to create a new Profile object.
@@ -123,13 +140,15 @@ class UpdateProfileView(UpdateView):
         print(f'UpdateProfileView: form.cleaned_data={form.cleaned_data}')
         return super().form_valid(form)
     
-class DeleteStatusMessageView(DeleteView):
+class DeleteStatusMessageView(LoginRequiredMixin, DeleteView):
     '''A view to delete a status message and remove it from the database.'''
 
     template_name = "mini_fb/delete_status_form.html" # show delete_status_form template
     model = StatusMessage # use StatusMessage model
     context_object_name = 'status_message' # set context variable as status_message
-
+    def get_login_url(self) -> str:
+        '''return the URL required for login'''
+        return reverse('login') 
     def get_success_url(self):
         '''Provide a URL to redirect to after deleting a Status Message.'''
 
@@ -143,13 +162,15 @@ class DeleteStatusMessageView(DeleteView):
         # reverse to show the profile page
         return reverse('show_profile', kwargs={'pk':profile.pk})
     
-class UpdateStatusMessageView(UpdateView):
+class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
     '''A view to handle updating an existing StatusMessage.'''
     template_name = 'mini_fb/update_status_form.html'  # this template you'll create in the next step
     model = StatusMessage
     context_object_name = 'status_message'
     form_class = UpdateStatusMessageForm
-
+    def get_login_url(self) -> str:
+        '''return the URL required for login'''
+        return reverse('login') 
     def get_success_url(self):
         '''After updating, redirect to the associated profile.'''
         # get the pk for this comment
@@ -160,8 +181,11 @@ class UpdateStatusMessageView(UpdateView):
         profile = status_message.profile
         return reverse('show_profile', kwargs={'pk': profile.pk})
 
-class AddFriendView(View):
+class AddFriendView(LoginRequiredMixin, View):
     ''' A view to handle adding a friend'''
+    def get_login_url(self) -> str:
+        '''return the URL required for login'''
+        return reverse('login')  
     def dispatch(self, request, *args, **kwargs):
         ''' we can read the URL parameters (from self.kwargs), use the object manager 
         to find the requisite Profile objects, and then call 

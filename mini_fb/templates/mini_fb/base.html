@@ -23,6 +23,16 @@
             <li><a href="{% url 'create_profile' %}">Create a profile</a></li>
         </ul>
     </nav>
+    <br> <!-- new line -->
+
+    <!-- shows if logged in(and who) or not-->
+    <nav>
+        {% if request.user.is_authenticated %}
+        Logged in user: {{ request.user }}.
+        {% else %}
+        Not logged in.
+        {% endif %}
+    </nav>
 
 {% block content %}
 <!-- to be filled in by the pages that inherit from base.html -->
