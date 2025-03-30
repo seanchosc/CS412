@@ -22,9 +22,14 @@ mini_fb/template/mini_fb/show_profile.html
             <br> <!-- new line -->
             <span class="small">email: </span><a href="mailto:{{ profile.emailAddress }}">{{ profile.emailAddress }}</a> <!-- email route and text styled-->   
             <br> <br> <!-- 2 new lines-->
-            <!-- update this profile -->
-            <span class="smmall"><a href="{% url 'update_profile' profile.pk %}">Update this profile</a>
+            
+            <!-- only if the profile user is logged in -->
+            {% if request.user.is_authenticated and request.user == profile.user %}
+            <span class="small"><a href="{% url 'update_profile' profile.pk %}">Update this profile</a>
             </span>
+            {% end if %}
+            <!-- update this profile -->
+
             <br> <!-- new line -->
 
             <!-- NEW STATUS MESSAGE DISPLAY IMPLEMENTATION-->
@@ -38,11 +43,18 @@ mini_fb/template/mini_fb/show_profile.html
                 <a>
                     <div>
                         <strong> {{status_message.message}} </strong> <!-- display the status message -->
-                        <span class="small"> <!-- minor styling -->
+                        <span class ="small">
                             at {{status_message.timestamp}} <!-- display the timestamp -->
+                        </span>
+
+                        <!-- only if the profile user is logged in -->
+                        {% if request.user.is_authenticated and request.user == profile.user %}
+                        <span class="small"> <!-- minor styling -->
                             <a href="{% url 'delete_status' status_message.pk %}">Delete</a> <!-- NEW delete status message feature-->
                             <a href="{% url 'update_status' status_message.pk %}">Update</a> <!-- NEW update status message feature-->
-                        </span>
+                        </span>                        
+                        {% end if %}
+
                     </div>
                 </a>
                     <!-- for each image in status_message -->
@@ -50,9 +62,13 @@ mini_fb/template/mini_fb/show_profile.html
                     <img src="{{ image.image_file.url }}" alt="{{ 'status image' }}">
                     {% endfor %}
                 {% endfor %}
+                
+                <!-- only if the profile user is logged in -->
+                {% if request.user.is_authenticated and request.user == profile.user %}                
                 <span class="small">
                     <h3><a href="{% url 'create_status' profile.pk %}">Write a status message</a></h3> <!-- new create status message functionality-->
                 </span>
+                {% endif %}
             </div>
             <!-- NEW FRIENDS DISPLAY IMPLEMENTATION-->
             <div> 
@@ -80,6 +96,9 @@ mini_fb/template/mini_fb/show_profile.html
                     {% else %}
                     <p> This person has no friends. </p>
                 {% endif %}
+
+                <!-- only if the profile user is logged in -->                
+                {% if request.user.is_authenticated and request.user == profile.user %} 
                 <h3>
                     <!-- Friend suggestions page button -->
                     <a href="{% url 'friend_suggestions' profile.pk %}">Friend Suggestions</a>
@@ -88,6 +107,7 @@ mini_fb/template/mini_fb/show_profile.html
                     <!-- Show news feed button -->
                     <a href="{% url 'news_feed' profile.pk %}">Feed</a>
                 </h3>
+                {% endif %}
             </div>
         </div>
     </profile>
