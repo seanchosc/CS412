@@ -8,7 +8,9 @@ from django.views.generic import View # For AddFriendView
 from django.views.generic.edit import UpdateView, DeleteView # UpdateView for UpdateProfileView, DeleteView for DeleteStatusMessageView
 from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm, UpdateStatusMessageForm # Import the create profile, create status message, and update profile forms from forms, 
 from django.urls import reverse 
+
 from django.contrib.auth.mixins import LoginRequiredMixin ## NEW for requiring user to be logged in
+from django.views.generic import TemplateView # For logout confirmation redirect page
 # BASE VIEW
 class BaseView(ListView):
     model = Profile # retrieve objects of type Profile from the database
@@ -278,3 +280,6 @@ class ShowNewsFeedView(DetailView):
         # add news feed to context
         context['news_feed'] = profile.get_news_feed()
         return context
+class LogoutRedirectView(TemplateView):
+    ''' View for being redirected to logout confirmation page'''
+    template_name = 'mini_fb/logged_out.html' ## show the logged_out template 
