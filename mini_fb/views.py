@@ -83,10 +83,17 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
         # calling the superclass method
         context = super().get_context_data()
 
+        ''' OLD IMPLEMENTATION
+
         # find/add the profile to the context data
         # retrieve the PK from the URL pattern
         pk = self.kwargs['pk']
         profile = Profile.objects.get(pk=pk)
+        
+        '''
+
+        ### NEW IMPLEMENTATION
+        profile = Profile.objects.get(user=self.request.user)
 
         # add this profile into the context dictionary:
         context['profile'] = profile
@@ -94,11 +101,19 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         '''Provide a URL to redirect to after creating a new Status Message.'''
 
+        ''' OLD IMPLEMENTATION
+
         # create and return a URL:
         # retrieve the PK from the URL pattern
         pk = self.kwargs['pk']
         # call reverse to generate the URL for this Profile
-        return reverse('show_profile', kwargs={'pk':pk})
+        return reverse('show_profile', kwargs={'pk':pk})   
+
+        '''
+
+        ### NEW IMPLEMENTATION
+        profile = Profile.objects.get(user=self.request.user)
+        return reverse('show_profile', kwargs={'pk': profile.pk})
     
     def form_valid(self, form):
         '''This method handles the form submission and saves the 
@@ -117,11 +132,19 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
         # attach user to form instance (Profile object):
         form.instance.user = user
 
+        ''' OLD IMPLEMENTATION
+
         # retrieve the PK from the URL pattern
         pk = self.kwargs['pk']
         profile = Profile.objects.get(pk=pk)
         # attach this profile to the status message
         form.instance.profile = profile # set the FK
+
+        ''' 
+
+        ### NEW IMPLEMENTATION
+        profile = Profile.objects.get(user=self.request.user)
+
 
         # save the status message to database
         sm = form.save()
@@ -140,6 +163,7 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
             print(f"StatusImage {status_image.id} saved")
         # delegate the work to the superclass method form_valid:
         return super().form_valid(form)
+    
 
 class UpdateProfileView(LoginRequiredMixin, UpdateView):
     ''' A view to update a Profile and save it to the database '''
@@ -163,6 +187,11 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
         form.instance.user = user
         
         return super().form_valid(form)
+    def get_object(self):
+        ''' uses the logged in user (self.request.user) and 
+        the object manager (Profile.objects) to locate and 
+        return the Profile corresponding to this User '''
+        return Profile.objects.get(user=self.request.user)
     
 class DeleteStatusMessageView(LoginRequiredMixin, DeleteView):
     '''A view to delete a status message and remove it from the database.'''
@@ -229,13 +258,23 @@ class AddFriendView(LoginRequiredMixin, View):
         the Profile‘s add_friend method (from step 2). 
         Finally, we can redirect the user back to the profile page'''
 
+        ''' OLD IMPLEMENTATION
         # read the URL paramters
         pk = self.kwargs['pk']
         other_pk = self.kwargs['other_pk']
 
         # find the requisite Profile objects
         profile = Profile.objects.get(pk=pk)
-        other_profile = Profile.objects.get(pk=other_pk)
+        other_profile = Profile.objects.get(pk=other_pk)        
+        '''
+
+        ### NEW IMPLEMENTATION
+        # read the URL parameters
+        other_pk = self.kwargs['other_pk']
+
+        # find the requisite Profile objects
+        profile = Profile.objects.get(user=request.user)
+        other_profile = Profile.objects.get(pk=other_pk)    
 
         # call the Profile's add_friend method
         profile.add_friend(other_profile)
@@ -256,10 +295,14 @@ class ShowFriendSuggestionsView(LoginRequiredMixin, DetailView):
         # calling the superclass method
         context = super().get_context_data(**kwargs)
 
+        ''' OLD IMPLEMENTATION 
         # find/add the profile to the context data
         # retrieve the PK from the URL pattern
         pk = self.kwargs['pk']
         profile = Profile.objects.get(pk=self.kwargs['pk'])
+    '''
+        ### NEW IMPLEMENTATION:
+        profile = Profile.objects.get(user=self.request.user)
 
         # add this profile into the context dictionary:
         context['profile'] = profile
@@ -280,6 +323,11 @@ class ShowNewsFeedView(DetailView):
         # add news feed to context
         context['news_feed'] = profile.get_news_feed()
         return context
+    def get_object(self):
+        ''' uses the logged in user (self.request.user) and 
+        the object manager (Profile.objects) to locate and 
+        return the Profile corresponding to this User '''
+        return Profile.objects.get(user=self.request.user)
 class LogoutRedirectView(TemplateView):
     ''' View for being redirected to logout confirmation page'''
     template_name = 'mini_fb/logged_out.html' ## show the logged_out template 
