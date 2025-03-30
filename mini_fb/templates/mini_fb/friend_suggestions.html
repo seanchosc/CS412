@@ -27,7 +27,7 @@
                         {{friend.firstName}} {{friend.lastName}}
                     </strong> <!-- their name-->
                     <!-- add friend button -->
-                    <a href="{% url 'add_friend' profile.pk friend.pk %}"> Add Friend </a>
+                    <a href="{% url 'add_friend' friend.pk %}"> Add Friend </a>
                 <!-- the suggested friend does not have a profile phhoto-->
                 {% else %}
                     <p> No Profile Photo</p>
@@ -37,7 +37,7 @@
                         {{friend.firstName}} {{friend.lastName}}
                     </strong> <!-- their name-->
                     <!-- add friend button -->
-                    <a href="{% url 'add_friend' profile.pk friend.pk %}"> Add Friend </a>
+                    <a href="{% url 'add_friend' friend.pk %}"> Add Friend </a>
                 {% endif %}                    
             </div>
         {% endfor %}

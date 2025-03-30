@@ -25,7 +25,7 @@ mini_fb/template/mini_fb/show_profile.html
             
             <!-- only if the profile user is logged in -->
             {% if request.user.is_authenticated and request.user == profile.user %}
-            <span class="small"><a href="{% url 'update_profile' profile.pk %}">Update this profile</a>
+            <span class="small"><a href="{% url 'update_profile' %}">Update this profile</a>
             </span>
             {% endif %}
             <!-- update this profile -->
@@ -66,7 +66,7 @@ mini_fb/template/mini_fb/show_profile.html
                 <!-- only if the profile user is logged in -->
                 {% if request.user.is_authenticated and request.user == profile.user %}                
                 <span class="small">
-                    <h3><a href="{% url 'create_status' profile.pk %}">Write a status message</a></h3> <!-- new create status message functionality-->
+                    <h3><a href="{% url 'create_status' %}">Write a status message</a></h3> <!-- new create status message functionality-->
                 </span>
                 {% endif %}
             </div>
@@ -101,11 +101,11 @@ mini_fb/template/mini_fb/show_profile.html
                 {% if request.user.is_authenticated and request.user == profile.user %} 
                 <h3>
                     <!-- Friend suggestions page button -->
-                    <a href="{% url 'friend_suggestions' profile.pk %}">Friend Suggestions</a>
+                    <a href="{% url 'friend_suggestions' %}">Friend Suggestions</a>
                 </h3>
                 <h3>
                     <!-- Show news feed button -->
-                    <a href="{% url 'news_feed' profile.pk %}">Feed</a>
+                    <a href="{% url 'news_feed' %}">Feed</a>
                 </h3>
                 {% endif %}
             </div>
