@@ -6,6 +6,7 @@
 from django.db import models
 from django.templatetags.static import static # import static to use my custom photo in images for butter cat
 from django.urls import reverse # import reverse for get_absolute_url
+from django.contrib.auth.models import User # import User for user foreignkey
 # Create your models here.
 class Profile(models.Model):
     '''Encapsulate the idea of a Profile.'''
@@ -17,6 +18,7 @@ class Profile(models.Model):
     emailAddress = models.TextField(blank=False) # person's email attribute
     #profileImageURL = models.TextField(blank=False) # person's profile image url attribute
     image_file = models.ImageField(blank=True) # NEW IMAGE FIELD (an actual image)
+    user = models.ForeignKey(User, on_delete=models.CASCADE) ## associate each Profile with an User for authentication and identification purposes
     def __str__(self):
         '''Return a string representation of this Profile object.'''
         return f'{self.firstName} {self.lastName}' # return as string their full name (no middle name attribute) 
