@@ -280,7 +280,7 @@ class AddFriendView(LoginRequiredMixin, View):
         profile.add_friend(other_profile)
 
         # redirect the user back to the profile page
-        return redirect(reverse('show_profile', kwargs={'pk': pk}))
+        return redirect(reverse('show_profile', kwargs={'pk': profile.pk}))
 class ShowFriendSuggestionsView(LoginRequiredMixin, DetailView):
     ''' view for showing friend suggestions '''
     model = Profile # retrieve objects of type Profile from the database
