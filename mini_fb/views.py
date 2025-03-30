@@ -310,6 +310,11 @@ class ShowFriendSuggestionsView(LoginRequiredMixin, DetailView):
         # add friend suggestions to context
         context['friends'] = profile.get_friend_suggestions()
         return context
+    def get_object(self):
+        ''' uses the logged in user (self.request.user) and 
+        the object manager (Profile.objects) to locate and 
+        return the Profile corresponding to this User '''
+        return Profile.objects.get(user=self.request.user)
 class ShowNewsFeedView(DetailView):
     ''' view for showing news feed'''
     model = Profile # retrieve objects of type Profile from the database
