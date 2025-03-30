@@ -27,7 +27,7 @@ mini_fb/template/mini_fb/show_profile.html
             {% if request.user.is_authenticated and request.user == profile.user %}
             <span class="small"><a href="{% url 'update_profile' profile.pk %}">Update this profile</a>
             </span>
-            {% end if %}
+            {% endif %}
             <!-- update this profile -->
 
             <br> <!-- new line -->
@@ -53,7 +53,7 @@ mini_fb/template/mini_fb/show_profile.html
                             <a href="{% url 'delete_status' status_message.pk %}">Delete</a> <!-- NEW delete status message feature-->
                             <a href="{% url 'update_status' status_message.pk %}">Update</a> <!-- NEW update status message feature-->
                         </span>                        
-                        {% end if %}
+                        {% endif %}
 
                     </div>
                 </a>
