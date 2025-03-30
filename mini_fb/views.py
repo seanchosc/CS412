@@ -144,7 +144,9 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
 
         ### NEW IMPLEMENTATION
         profile = Profile.objects.get(user=self.request.user)
-
+        
+        # Assign the message to the user
+        form.instance.profile = profile
 
         # save the status message to database
         sm = form.save()
