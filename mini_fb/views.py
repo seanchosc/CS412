@@ -105,8 +105,9 @@ class CreateProfileView(LoginRequiredMixin, CreateView):
         # calling the superclass method
         context = super().get_context_data(**kwargs)
         # add this form into the context dictionary:
-        if self.request.user.is_authenticated == False:
-            context['create_user_form'] = UserCreationForm()
+        if self.request.user.is_authenticated == True:
+            if Profile.objects.filter(user=self.request.user).exists():
+                context['create_user_form'] = UserCreationForm()
         return context
 
 
