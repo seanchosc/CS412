@@ -63,8 +63,6 @@ class CreateProfileView(LoginRequiredMixin, CreateView):
         '''
         print(f'CreateProfileView: form.cleaned_data={form.cleaned_data}')
 
-        ''' OLD IMPLEMENTATION
-
         # find the logged in user
         user = self.request.user
         print(f"CreateProfileView user={user} profile.user={user}")
@@ -106,7 +104,7 @@ class CreateProfileView(LoginRequiredMixin, CreateView):
             else:
                 #  if the form is not valid
                 return self.form_invalid(form)
-
+            '''
 
     def get_context_data(self, **kwargs):
         '''Return the dictionary of context variables for use in the template.'''
