@@ -108,6 +108,7 @@ class CreateProfileView(LoginRequiredMixin, CreateView):
         if self.request.user.is_authenticated == False:
             context['create_user_form'] = UserCreationForm()
             return context
+        return context
 
 
 class CreateStatusMessageView(LoginRequiredMixin, CreateView):

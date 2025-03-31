@@ -12,7 +12,9 @@ enctype="multipart/form-data">
     {% csrf_token %} <!-- token -->
     <table>
         {% if create_user_form %}
-            {{create_user_form.as_table}} <!-- display user creation form -->
+        {{create_user_form.as_table}} <!-- display user creation form -->
+        {% else %}
+        You are already logged in. Proceed with creating your profile
         {% endif %}
         {{form.as_table}} <!-- display form -->
     </table>
