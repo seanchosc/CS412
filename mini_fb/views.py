@@ -62,6 +62,7 @@ class CreateProfileView(LoginRequiredMixin, CreateView):
         Handle the form submission to create a new Profile object.
         '''
         print(f'CreateProfileView: form.cleaned_data={form.cleaned_data}')
+        ''' OLD IMPLEMENTATION
 
         # find the logged in user
         user = self.request.user
@@ -73,15 +74,32 @@ class CreateProfileView(LoginRequiredMixin, CreateView):
 		# delegate work to the superclass version of this method
         return super().form_valid(form)  
 
+        '''
+        ### NEW IMPLEMENTATION
+        
+        # Reconstruct the UserCreationForm instance from the self.request.POST data
+        user_form = UserCreationForm(self.request.POST)
+        
+        # if the form is valid, create new User object
+        if user_form.is_valid():
+            # save the newly created User object
+            user = user_form.save()
+            # Log the User in 
+            login(self.request, user)
+            # Attach the Django User to the Profile instance object
+            form.instance.user = user
+            # Delegate the rest to the super class’ form_valid method
+            return super().form_valid(form)
+        else:
+            #  if the form is not valid
+            return self.form_invalid(form)
+
     def get_context_data(self, **kwargs):
         '''Return the dictionary of context variables for use in the template.'''
         # calling the superclass method
         context = super().get_context_data(**kwargs)
-
-        ## NEW IF STATEMENT: ONLY CREATE USER IF NOT ALREADY LOGGED IN
-        if self.request.user.is_authenticated == False:
         # add this form into the context dictionary:
-            context['create_user_form'] = UserCreationForm()
+        context['create_user_form'] = UserCreationForm()
         return context
 
 

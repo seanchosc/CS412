@@ -11,10 +11,7 @@
 enctype="multipart/form-data">
     {% csrf_token %} <!-- token -->
     <table>
-        <!-- NEW CONDITIONAL TO ONLY DISPLAY CREATE USER FORM WHEN NO USER IS LOGGED IN-->
-        {% if create_user_form %}
-            {{create_user_form.as_table}} <!-- display user creation form -->
-        {% endif %}
+        {{create_user_form.as_table}} <!-- display user creation form -->
         {{form.as_table}} <!-- display form -->
     </table>
 
