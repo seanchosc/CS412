@@ -11,7 +11,9 @@
 enctype="multipart/form-data">
     {% csrf_token %} <!-- token -->
     <table>
-        {{create_user_form.as_table}} <!-- display user creation form -->
+        {% if create_user_form %}
+            {{create_user_form.as_table}} <!-- display user creation form -->
+        {% endif %}
         {{form.as_table}} <!-- display form -->
     </table>
 
