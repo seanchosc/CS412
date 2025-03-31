@@ -105,11 +105,9 @@ class CreateProfileView(LoginRequiredMixin, CreateView):
         # calling the superclass method
         context = super().get_context_data(**kwargs)
         # add this form into the context dictionary:
-        if self.request.user.is_authenticated == True:
-            if Profile.objects.filter(user=self.request.user).exists():
-                context['create_user_form'] = UserCreationForm()
+        if (not self.request.user.is_authenticated or Profile.objects.filter(user=self.request.user).exists()):
+            context['create_user_form'] = UserCreationForm()
         return context
-
 
 class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     '''A view to create a new status message and save it to the database.'''
