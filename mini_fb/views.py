@@ -77,7 +77,11 @@ class CreateProfileView(LoginRequiredMixin, CreateView):
 
         '''
         ### NEW IMPLEMENTATION
-
+        
+        #if the user is already logged in, create the profile right away
+        if self.request.user.is_authenticated:
+            form.instance.user = self.request.user
+        return super().form_valid(form)
         # Reconstruct the UserCreationForm instance from the self.request.POST data
         user_form = UserCreationForm(self.request.POST)
         
