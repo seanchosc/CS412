@@ -107,7 +107,6 @@ class CreateProfileView(LoginRequiredMixin, CreateView):
         # add this form into the context dictionary:
         if self.request.user.is_authenticated == False:
             context['create_user_form'] = UserCreationForm()
-            return context
         return context
 
 
