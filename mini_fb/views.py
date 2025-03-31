@@ -100,8 +100,11 @@ class CreateProfileView(LoginRequiredMixin, CreateView):
         '''Return the dictionary of context variables for use in the template.'''
         # calling the superclass method
         context = super().get_context_data(**kwargs)
+
+        ## NEW IF STATEMENT: ONLY CREATE USER IF NOT ALREADY LOGGED IN
+        if self.request.user.is_authenticated == False:
         # add this form into the context dictionary:
-        context['create_user_form'] = UserCreationForm()
+            context['create_user_form'] = UserCreationForm()
         return context
 
 
@@ -378,6 +381,16 @@ class UserRegistrationView(CreateView):
     template_name = 'mini_fb/register.html' # show the register template
     form_class = UserCreationForm # use the imported UserCreationForm class
     model = User # use the import User model
+
+    ''' MY PREVIOUS IMPLEMENTATION
     def get_success_url(self):
-        '''The URL to redirect to after creating a new User.'''
-        return reverse('login')
+        return reverse('login')    
+    '''
+    # MY NEW IMPLEMENTATION
+    def form_valid(self, form):
+        '''
+        Handle the form submission to update a StatusMessage object.
+        '''
+        user = form.save()  # save user creation from
+        login(self.request, user)  # automatically login
+        return redirect('create_profile')  # redirect to create profile
