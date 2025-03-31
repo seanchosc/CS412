@@ -81,23 +81,26 @@ class CreateProfileView(LoginRequiredMixin, CreateView):
         #if the user is already logged in, create the profile right away
         if self.request.user.is_authenticated:
             form.instance.user = self.request.user
-        return super().form_valid(form)
-        # Reconstruct the UserCreationForm instance from the self.request.POST data
-        user_form = UserCreationForm(self.request.POST)
-        
-        # if the form is valid, create new User object
-        if user_form.is_valid():
-            # save the newly created User object
-            user = user_form.save()
-            # Log the User in 
-            login(self.request, user)
-            # Attach the Django User to the Profile instance object
-            form.instance.user = user
-            # Delegate the rest to the super class’ form_valid method
             return super().form_valid(form)
         else:
-            #  if the form is not valid
-            return self.form_invalid(form)
+            #then there is no logged in user so create an account first
+
+            # create a user form
+            user_form = UserCreationForm(self.request.POST)
+            
+            # if the form is valid, create new User object
+            if user_form.is_valid():
+                # save the newly created User object
+                user = user_form.save()
+                # Log the User in 
+                login(self.request, user)
+                # Attach the Django User to the Profile instance object
+                form.instance.user = user
+                # Delegate the rest to the super class’ form_valid method
+                return super().form_valid(form)
+            else:
+                #  if the form is not valid
+                return self.form_invalid(form)
 
 
     def get_context_data(self, **kwargs):
