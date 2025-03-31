@@ -73,39 +73,6 @@ class CreateProfileView(LoginRequiredMixin, CreateView):
 		# delegate work to the superclass version of this method
         return super().form_valid(form)  
 
-        '''
-        ### NEW IMPLEMENTATION
-        
-        #if the user is already logged in
-        if self.request.user.is_authenticated:
-            # if the user already has a preexisting profile
-            if Profile.objects.filter(user=self.request.user).exists():
-                return self.form_invalid(form)  # block the creation of another profile
-            else:
-                #create the profile
-                form.instance.user = self.request.user
-                return super().form_valid(form)
-        else:
-            #then there is no logged in user so create an account first
-
-            # create a user form
-            user_form = UserCreationForm(self.request.POST)
-            
-            # if the form is valid, create new User object
-            if user_form.is_valid():
-                # save the newly created User object
-                user = user_form.save()
-                # Log the User in 
-                login(self.request, user)
-                # Attach the Django User to the Profile instance object
-                form.instance.user = user
-                # Delegate the rest to the super class’ form_valid method
-                return super().form_valid(form)
-            else:
-                #  if the form is not valid
-                return self.form_invalid(form)
-            '''
-
     def get_context_data(self, **kwargs):
         '''Return the dictionary of context variables for use in the template.'''
         # calling the superclass method
