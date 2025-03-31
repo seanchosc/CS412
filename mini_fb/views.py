@@ -78,10 +78,15 @@ class CreateProfileView(LoginRequiredMixin, CreateView):
         '''
         ### NEW IMPLEMENTATION
         
-        #if the user is already logged in, create the profile right away
+        #if the user is already logged in
         if self.request.user.is_authenticated:
-            form.instance.user = self.request.user
-            return super().form_valid(form)
+            # if the user already has a preexisting profile
+            if Profile.objects.filter(user=self.request.user).exists():
+                return self.form_invalid(form)  # block the creation of another profile
+            else:
+                #create the profile
+                form.instance.user = self.request.user
+                return super().form_valid(form)
         else:
             #then there is no logged in user so create an account first
 
