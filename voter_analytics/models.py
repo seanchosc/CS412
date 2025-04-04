@@ -41,22 +41,22 @@ class Voter(models.Model):
             # create a new instance of Voter object with this record from CSV
             try:
                 voter = Voter(
-                            lastName=fields[0],
-                            firstName=fields[1],
-                            streetNumber=fields[2] if fields[2] else "N/A",
-                            streetName=fields[3],
-                            aptNumber=fields[4] if fields[4] else "N/A",
-                            zipCode=fields[5] if fields[5] else "N/A",
-                            dob=fields[6],
-                            dor=fields[7],
-                            affiliation=fields[8].strip(),
-                            precinctNumber=fields[9] if fields[9] else "N/A",
-                            v20=fields[10].strip().upper() == "TRUE",
-                            v21s=fields[11].strip().upper() == "TRUE",
-                            v21p=fields[12].strip().upper() == "TRUE",
-                            v22=fields[13].strip().upper() == "TRUE",
-                            v23=fields[14].strip().upper() == "TRUE",
-                            voterScore=fields[15] if fields[15] else "N/A"
+                            lastName=fields[1],
+                            firstName=fields[2],
+                            streetNumber=fields[3] if fields[3] else "N/A",
+                            streetName=fields[4],
+                            aptNumber=fields[5] if fields[5] else "N/A",
+                            zipCode=fields[6] if fields[6] else "N/A",
+                            dob=fields[7],
+                            dor=fields[8],
+                            affiliation=fields[9].strip(),
+                            precinctNumber=fields[10] if fields[10] else "N/A",
+                            v20=fields[11].strip().upper() == "TRUE",
+                            v21s=fields[12].strip().upper() == "TRUE",
+                            v21p=fields[13].strip().upper() == "TRUE",
+                            v22=fields[14].strip().upper() == "TRUE",
+                            v23=fields[15].strip().upper() == "TRUE",
+                            voterScore=fields[16] if fields[16] else "N/A"
                             )
                 voter.save() # commit to database
                 print(f'Created result: {voter}')
