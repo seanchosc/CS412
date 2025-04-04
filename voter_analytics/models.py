@@ -20,7 +20,7 @@ class Voter(models.Model):
     v22 = models.BooleanField()             # *    v22general
     v23 = models.BooleanField()             # *    v23town
     voterScore = models.TextField()      # *    Voter Score
-
+    
     def __str__(self):
         ''' Returns a spring representation of a voter '''
         if len(self.affiliation) == 2 and self.affiliation[1] == ' ':
@@ -32,7 +32,8 @@ class Voter(models.Model):
     # begin load_data() function to process .csv file
     def load_data():
         '''Function to load data records from CSV file into Django model instances.'''
-
+        
+        Voter.objects.all().delete()     # delete existing records to prevent duplicates:
         filename = 'voter_analytics/data/newton_voters.csv'
         f = open(filename)
         f.readline() # discard headers

@@ -1,0 +1,57 @@
+<!-- templates/marathon_analytics/results.html -->
+{% extends 'voter_analytics/base.html' %}
+<h1>Showing all Voters</h1>
+
+{% block content %}
+<div class="container">
+
+    <!-- navigation links for different pages of results -->
+    <div class="row">
+        {% if is_paginated %}
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li>
+                    <span><a href="?page={{ page_obj.previous_page_number }}">Previous</a></span>
+                
+                </li>
+            {% endif %}
+                <li class="">
+                    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+                </li>
+            {% if page_obj.has_next %}
+                <li>
+                    <span><a href="?page={{ page_obj.next_page_number }}">Next</a></span>
+                </li>
+            {% endif %}
+            </ul>
+        {% endif %}
+    </div>
+    
+	<!-- table of results -->
+    <div class="row">
+        <table>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Street Address</th>
+                <th>Party</th>
+                <th>Voter Score</th>
+            </tr>
+    
+            {% for voter in voters %}
+            <tr>
+                
+                <td>{{voter.firstName}}</td>
+                <td>{{voter.lastName}}
+                </td>
+                <td>{{voter.streetNumber }} {{voter.streetName}}{% if voter.aptNumber != "N/A" %}, Apt {{voter.aptNumber}}{% endif %}</td>
+                <td>{voter.DOB}</td>
+                <td>{voter.affiliation|trim}</td>
+                <td>{voter.voterScore}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</div>    
+{% endblock %}
