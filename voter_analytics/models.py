@@ -25,7 +25,8 @@ class Voter(models.Model):
         ''' Returns a spring representation of a voter '''
         if self.affiliation[1] == ' ':
             party = self.affiliation[0]
-
+        else:
+            party = self.affiliation
         return f'{self.firstName} {self.lastName}| DOB: {self.dob}, Party: {party}, Zipcode: {self.zipCode}'
     
     # begin load_data() function to process .csv file
@@ -60,8 +61,8 @@ class Voter(models.Model):
                 voter.save() # commit to database
                 print(f'Created result: {voter}')
 
-            except:
-                print(f"Skipped: {fields}")
+            except Exception as e:
+                print(f"Skipped: {fields} → {e}")
         print(f'Done. Created {len(Voter.objects.all())} voters.')
         f.close()
 
