@@ -22,8 +22,10 @@ class Voter(models.Model):
     voterScore = models.TextField()      # *    Voter Score
 
     ### REMOVE TRAILING SPACES FOR PARTY AFFILIATION
-    if len(affiliation) == 2 and affiliation[1] == ' ':
-            affiliation = affiliation[0]
+    def save(self, *args, **kwargs):
+        if self.affiliation:
+            self.affiliation = self.affiliation.strip()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         ''' Returns a spring representation of a voter '''
