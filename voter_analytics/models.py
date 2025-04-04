@@ -20,14 +20,14 @@ class Voter(models.Model):
     v22 = models.BooleanField()             # *    v22general
     v23 = models.BooleanField()             # *    v23town
     voterScore = models.TextField()      # *    Voter Score
-    
+
+    ### REMOVE TRAILING SPACES FOR PARTY AFFILIATION
+    if len(affiliation) == 2 and affiliation[1] == ' ':
+            affiliation = affiliation[0]
+
     def __str__(self):
         ''' Returns a spring representation of a voter '''
-        if len(self.affiliation) == 2 and self.affiliation[1] == ' ':
-            party = self.affiliation[0]
-        else:
-            party = self.affiliation
-        return f'{self.firstName} {self.lastName}| DOB: {self.dob}, Party: {party}, Zipcode: {self.zipCode}'
+        return f'{self.firstName} {self.lastName}| DOB: {self.dob}, Party: {self.affiliation}, Zipcode: {self.zipCode}'
     
     # begin load_data() function to process .csv file
     def load_data():

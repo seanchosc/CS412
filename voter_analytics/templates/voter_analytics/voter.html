@@ -48,7 +48,7 @@
                 </td>
                 <td>{{voter.streetNumber }} {{voter.streetName}}{% if voter.aptNumber != "N/A" %}, Apt {{voter.aptNumber}}{% endif %}</td>
                 <td>{{voter.DOB}}</td>
-                <td>{{voter.affiliation|trim}}</td>
+                <td>{{voter.affiliation}}</td>
                 <td>{{voter.voterScore}}</td>
             </tr>
             {% endfor %}
