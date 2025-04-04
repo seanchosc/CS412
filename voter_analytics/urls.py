@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     path(r'', views.VoterListView.as_view(), name='home'), # display voter view
-    path(r'results', views.VoterListView.as_view(), name='voter_list'), # display voter view
+    path(r'voters', views.VoterListView.as_view(), name='voters_list'), # display voter view
 ]   
