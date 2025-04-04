@@ -1,5 +1,6 @@
 <!-- templates/marathon_analytics/results.html -->
 {% extends 'voter_analytics/base.html' %}
+
 <h1>Showing all Voters</h1>
 
 {% block content %}
@@ -34,6 +35,7 @@
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Street Address</th>
+                <th>Date of Birth</th>
                 <th>Party</th>
                 <th>Voter Score</th>
             </tr>
@@ -45,9 +47,9 @@
                 <td>{{voter.lastName}}
                 </td>
                 <td>{{voter.streetNumber }} {{voter.streetName}}{% if voter.aptNumber != "N/A" %}, Apt {{voter.aptNumber}}{% endif %}</td>
-                <td>{voter.DOB}</td>
-                <td>{voter.affiliation|trim}</td>
-                <td>{voter.voterScore}</td>
+                <td>{{voter.DOB}}</td>
+                <td>{{voter.affiliation|trim}}</td>
+                <td>{{voter.voterScore}}</td>
             </tr>
             {% endfor %}
         </table>
