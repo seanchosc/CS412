@@ -23,7 +23,7 @@ class Voter(models.Model):
 
     def __str__(self):
         ''' Returns a spring representation of a voter '''
-        if self.affiliation[1] == ' ':
+        if len(self.affiliation) == 2 and self.affiliation[1] == ' ':
             party = self.affiliation[0]
         else:
             party = self.affiliation
