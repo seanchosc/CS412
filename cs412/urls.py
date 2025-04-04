@@ -23,6 +23,7 @@ urlpatterns = [
     path("quotes/", include("quotes.urls")), # NEW QUOTES APP PATH
     path("restaurant/", include("restaurant.urls")), # NEW RESTERAUNT APP PATH
     path("mini_fb/", include("mini_fb.urls")), # include the URLs from our mini_fb project's urls.py file
+    path("voter_analytics/", include("voter_analytics.urls")), # voter analytics app urls
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # include static
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # include media 

@@ -59,7 +59,7 @@ class Voter(models.Model):
                             voterScore=fields[16] if fields[16] else "N/A"
                             )
                 voter.save() # commit to database
-                print(f'Created result: {voter}')
+                print(f'Created voter: {voter}')
 
             except Exception as e:
                 print(f"Skipped: {fields} → {e}")
