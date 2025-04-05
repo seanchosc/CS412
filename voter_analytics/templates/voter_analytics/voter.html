@@ -12,8 +12,7 @@
         <ul class="pagination">
             {% if page_obj.has_previous %}
                 <li>
-                    <span><a href="?page={{ page_obj.previous_page_number }}">Previous</a></span>
-                
+                    <span><a href="?{% if request.GET %}{{request.GET.urlencode}}&{% endif %}page={{page_obj.previous_page_number}}">Previous</a></span>
                 </li>
             {% endif %}
                 <li class="">
@@ -21,7 +20,7 @@
                 </li>
             {% if page_obj.has_next %}
                 <li>
-                    <span><a href="?page={{ page_obj.next_page_number }}">Next</a></span>
+                    <span><a href="?{% if request.GET %}{{request.GET.urlencode}}&{% endif %}page={{page_obj.next_page_number}}">Next</a></span>
                 </li>
             {% endif %}
             </ul>
@@ -32,8 +31,7 @@
     <div class="row">
         <table>
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Name</th>
                 <th>Street Address</th>
                 <th>Date of Birth</th>
                 <th>Party</th>

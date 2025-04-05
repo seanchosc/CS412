@@ -39,14 +39,18 @@ class VoterListView(ListView):
             score = self.request.GET['voterScore']
             if score:
                 voters = voters.filter(voterScore=score)
+        # get birth year        
+        voters = voters.annotate(yob=Substr('dob', 1, 4))
         if 'minYOB' in self.request.GET:
             yob = self.request.GET['minYOB']
             if yob:
-                voters = [v for v in voters if v.dob[:4] == yob]
+                # greater than or equal
+                voters = voters.filter(yob__gte=yob)
         if 'maxYOB' in self.request.GET:
             yob = self.request.GET['maxYOB']
             if yob:
-                voters = [v for v in voters if v.dob[:4] == yob]
+                # less than or equal
+                voters = voters.filter(yob__lte=yob)
         if 'v20' in self.request.GET:
             voters = voters.filter(v20=True)
         if 'v21t' in self.request.GET:
