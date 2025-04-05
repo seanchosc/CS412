@@ -51,16 +51,6 @@ class VoterListView(ListView):
             if yob:
                 # less than or equal
                 voters = voters.filter(yob__lte=yob)
-        if 'v20' in self.request.GET:
-            voters = voters.filter(v20=True)
-        if 'v21t' in self.request.GET:
-            voters = voters.filter(v21t=True)
-        if 'v21p' in self.request.GET:
-            voters = voters.filter(v21p=True)
-        if 'v22' in self.request.GET:
-            voters = voters.filter(v22=True)   
-        if 'v23' in self.request.GET:
-            voters = voters.filter(v23=True)   
         return voters
     
 class VoterDetailView(DetailView):
