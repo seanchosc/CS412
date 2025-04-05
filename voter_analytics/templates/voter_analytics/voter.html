@@ -1,12 +1,12 @@
-<!-- templates/marathon_analytics/results.html -->
+<!-- templates/voter_analytics/voter.html -->
 {% extends 'voter_analytics/base.html' %}
-
-<h1>Showing all Voters</h1>
-
 {% block content %}
+<h1>Showing all Voters</h1>
 <div class="container">
-
-    <!-- navigation links for different pages of results -->
+    <div class="row">
+        {% include "voter_analytics/search.html" %}    
+    </div>
+    <!-- navigation links for different pages of voters -->
     <div class="row">
         {% if is_paginated %}
         <ul class="pagination">
@@ -28,7 +28,7 @@
         {% endif %}
     </div>
     
-	<!-- table of results -->
+	<!-- table of voters -->
     <div class="row">
         <table>
             <tr>

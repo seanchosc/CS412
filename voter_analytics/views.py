@@ -22,4 +22,40 @@ class VoterListView(ListView):
 
     def get_queryset(self):
         voters = super().get_queryset()
+        if 'affiliation' in self.request.GET:
+            party = self.request.GET['affiliation']
+            if party:
+                voters = voters.filter(affiliation=party)
+        if 'voterScore' in self.request.GET:
+            score = self.request.GET['voterScore']
+            if score:
+                voters = voters.filter(voterScore=score)
+        if 'minYOB' in self.request.GET:
+            yob = self.request.GET['minYOB']
+            if yob:
+                voters = [v for v in voters if v.dob[:4] == yob]
+        if 'maxYOB' in self.request.GET:
+            yob = self.request.GET['maxYOB']
+            if yob:
+                voters = [v for v in voters if v.dob[:4] == yob]
+        if 'v20state' in self.request.GET:
+            election = self.request.GET['v20state']
+            if election:
+                voters = voters.filter(v20state=True)
+        if 'v21town' in self.request.GET:
+            election = self.request.GET['v21town']
+            if election:
+                voters = voters.filter(v21town=True)
+        if 'v21primary' in self.request.GET:
+            election = self.request.GET['v21primary']
+            if election:
+                voters = voters.filter(v21primary=True)
+        if 'v22general' in self.request.GET:
+            election = self.request.GET['v22general']
+            if election:
+                voters = voters.filter(v22general=True)   
+        if 'v23town' in self.request.GET:
+            election = self.request.GET['v23town']
+            if election:
+                voters = voters.filter(v23town=True)   
         return voters
