@@ -1,0 +1,42 @@
+{% extends 'voter_analytics/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Voter Detail</h1>
+
+    <div class="row">
+    <table>
+        <tbody>
+        <tr>
+            <th><strong>Name:</strong></th>
+            <td>{{voter.firstName}} {{voter.lastName}}</td>
+        </tr>
+        <tr>
+            <th><strong>Address:</strong></th>
+            <td>
+                <a href="https://www.google.com/maps?q={{voter.streetNumber}} {{voter.streetName}}{% if voter.aptNumber != 'N/A' %}, Apartment {{voter.aptNumber}}{% endif %}, {{voter.zipCode}}" target="_blank">
+                    {{ voter.streetNumber }} {{ voter.streetName }}{% if voter.aptNumber != 'N/A' %}, Apartment {{ voter.aptNumber }}{% endif %}, {{ voter.zipCode }}
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th><strong>Date of Birth:</strong></th>
+            <td>{{voter.dob}}</td>
+        </tr>
+        <tr>
+            <th><strong>Date of Registration:</strong></th>
+            <td>{{voter.dob}}</td>
+        </tr>
+        <tr>
+            <th><strong>Party Affiliation:</strong></th>
+            <td>{{voter.dob}}</td>    
+        </tr>
+        <tr>
+            <th><strong>Voter Score:</strong></th>
+            <td>{{voter.voterScore}}</td>
+        </tr>
+    </tbody></table>
+    </div>
+</div>
+{%endblock%}

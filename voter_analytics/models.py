@@ -55,7 +55,7 @@ class Voter(models.Model):
                             affiliation=fields[9].strip(),
                             precinctNumber=fields[10] if fields[10] else "N/A",
                             v20=fields[11].strip().upper() == "TRUE",
-                            v21s=fields[12].strip().upper() == "TRUE",
+                            v21t=fields[12].strip().upper() == "TRUE",
                             v21p=fields[13].strip().upper() == "TRUE",
                             v22=fields[14].strip().upper() == "TRUE",
                             v23=fields[15].strip().upper() == "TRUE",

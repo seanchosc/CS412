@@ -43,10 +43,12 @@
             {% for voter in voters %}
             <tr>
                 
-                <td>{{voter.firstName}}</td>
-                <td>{{voter.lastName}}
+                <td>
+                    <a href="{% url 'voter' voter.pk %}">
+                        {{voter.firstName}} {{voter.lastName}}
+                    </a>
                 </td>
-                <td>{{voter.streetNumber }} {{voter.streetName}}{% if voter.aptNumber != "N/A" %}, Apt {{voter.aptNumber}}{% endif %}</td>
+                <td>{{voter.streetNumber}} {{voter.streetName}}{% if voter.aptNumber != "N/A" %}, Apt {{voter.aptNumber}}{% endif %}</td>
                 <td>{{voter.dob}}</td>
                 <td>{{voter.affiliation}}</td>
                 <td>{{voter.voterScore}}</td>

@@ -4,6 +4,7 @@ from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.views.generic import ListView
 from . models import Voter # import the voter mdel
+from django.views.generic.detail import DetailView #import detailview for voter detail view
 
 # BASE VIEW
 class BaseView(ListView):
@@ -41,21 +42,27 @@ class VoterListView(ListView):
         if 'v20state' in self.request.GET:
             election = self.request.GET['v20state']
             if election:
-                voters = voters.filter(v20state=True)
+                voters = voters.filter(v20=True)
         if 'v21town' in self.request.GET:
             election = self.request.GET['v21town']
             if election:
-                voters = voters.filter(v21town=True)
+                voters = voters.filter(v21t=True)
         if 'v21primary' in self.request.GET:
             election = self.request.GET['v21primary']
             if election:
-                voters = voters.filter(v21primary=True)
+                voters = voters.filter(v21p=True)
         if 'v22general' in self.request.GET:
             election = self.request.GET['v22general']
             if election:
-                voters = voters.filter(v22general=True)   
+                voters = voters.filter(v22=True)   
         if 'v23town' in self.request.GET:
             election = self.request.GET['v23town']
             if election:
-                voters = voters.filter(v23town=True)   
+                voters = voters.filter(v23=True)   
         return voters
+    
+class VoterDetailView(DetailView):
+    ''' show a page for a single Voter record '''
+    model = Voter
+    template_name = 'voter_analytics/single_voter.html'
+    context_object_name = 'voter'
