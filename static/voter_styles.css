@@ -1,0 +1,79 @@
+body {
+    font-family: Garamond, serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f6f6f6;
+    color: #333;
+}
+nav {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 1.1em;
+}
+
+.container, table, form {
+    margin: 0 auto;
+    text-align: left;
+}
+
+h1 {
+    text-align: center;
+    color: #444;
+}
+h2 {
+    text-align: center;
+    color: #444;
+    font-size: 30;
+}
+
+/* Form styling */
+form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: inline-block;
+}
+
+table {
+    border-collapse: collapse;
+    width: 90%;
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+th, td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #eee;
+    color: #333;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+.pagination {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: #555;
+}
+
+.pagination a:hover {
+    text-decoration: underline;
+}
