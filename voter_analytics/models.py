@@ -15,7 +15,7 @@ class Voter(models.Model):
     affiliation = models.CharField(max_length=2) # Party Affiliation (**note, this is a 2-character wide field**)
     precinctNumber = models.TextField()  # *    Precinct Number
     v20 = models.BooleanField()             # *    v20state
-    v21s = models.BooleanField()            # *    v21town
+    v21t = models.BooleanField()            # *    v21town
     v21p = models.BooleanField()            # *    v21primary
     v22 = models.BooleanField()             # *    v22general
     v23 = models.BooleanField()             # *    v23town
