@@ -6,6 +6,9 @@ from django.views.generic import ListView
 from . models import Voter # import the voter mdel
 from django.views.generic.detail import DetailView #import detailview for voter detail view
 
+import math
+import plotly
+import plotly.graph_objs as go
 # BASE VIEW
 class BaseView(ListView):
     ''' base view'''
@@ -66,3 +69,7 @@ class VoterDetailView(DetailView):
     model = Voter
     template_name = 'voter_analytics/single_voter.html'
     context_object_name = 'voter'
+
+class GraphsView(ListView):
+    ''' view for voter information in graphs '''
+    
