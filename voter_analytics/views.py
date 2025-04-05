@@ -42,24 +42,24 @@ class VoterListView(ListView):
             yob = self.request.GET['maxYOB']
             if yob:
                 voters = [v for v in voters if v.dob[:4] == yob]
-        if 'v20state' in self.request.GET:
-            election = self.request.GET['v20state']
+        if 'v20' in self.request.GET:
+            election = self.request.GET['v20']
             if election:
                 voters = voters.filter(v20=True)
-        if 'v21town' in self.request.GET:
-            election = self.request.GET['v21town']
+        if 'v21t' in self.request.GET:
+            election = self.request.GET['v21t']
             if election:
                 voters = voters.filter(v21t=True)
-        if 'v21primary' in self.request.GET:
-            election = self.request.GET['v21primary']
+        if 'v21p' in self.request.GET:
+            election = self.request.GET['v21p']
             if election:
                 voters = voters.filter(v21p=True)
-        if 'v22general' in self.request.GET:
-            election = self.request.GET['v22general']
+        if 'v22' in self.request.GET:
+            election = self.request.GET['v22']
             if election:
                 voters = voters.filter(v22=True)   
-        if 'v23town' in self.request.GET:
-            election = self.request.GET['v23town']
+        if 'v23' in self.request.GET:
+            election = self.request.GET['v23']
             if election:
                 voters = voters.filter(v23=True)   
         return voters
@@ -72,4 +72,4 @@ class VoterDetailView(DetailView):
 
 class GraphsView(ListView):
     ''' view for voter information in graphs '''
-    
+
