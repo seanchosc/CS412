@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "restaurant", # Assignment 4, Restaurant App
     "mini_fb", # Assignment 5, Mini Facebook App
     "voter_analytics", # Assignment 10, Voter Analytics App
+    "social_calendar", # FINAL PROJECT: SOCIAL CALENDAR APP
 ]
 
 MIDDLEWARE = [

@@ -3,7 +3,7 @@
 from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.views.generic import ListView
-from . models import Voter # import the voter mdel
+from .models import Voter # import the voter mdel
 from django.views.generic.detail import DetailView #import detailview for voter detail view
 
 ### FOR GRAPHS
