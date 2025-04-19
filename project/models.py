@@ -93,7 +93,7 @@ class Event(models.Model):
 
     EVENT_TYPES = [('self', 'Self'), ('friends', 'Friends'), ('work', 'Work')] # Types of events
     event_title = models.CharField(max_length=60) # Event title
-    event_description = models.TextField() # Event description, text field because we will allow long event descriptions
+    event_description = models.TextField(blank=True) # Event description, text field because we will allow long event descriptions
     event_start_time = models.TimeField(null = True, blank = True) # Event start time, optional
     event_end_time = models.TimeField(null = True, blank= True) # Event end time, optional
     event_date = models.DateField() # Event date, this is required
