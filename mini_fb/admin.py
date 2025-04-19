@@ -12,3 +12,4 @@ admin.site.register(StatusMessage) # register StatusMessage
 
 from.models import Friend # import Friend model
 admin.site.register(Friend) # register Friend
+

@@ -1,0 +1,62 @@
+<h1>{{profile.get_name}}'s Dashboard</h1>
+
+<h2>Your Events</h2>
+<ul>
+  {% for event in events %}
+    <li>{{event.event_title}} on {{event.event_date}}</li>
+  {% empty %}
+    <li>No events found.</li>
+  {% endfor %}
+</ul>
+
+<h2>Pending Event Invites (Received)</h2>
+<ul>
+  {% for invite in pending_event_invites_received %}
+    <li>From {{invite.inviter.get_name}} — Event: {{invite.event.event_title}}</li>
+  {% empty %}
+    <li>No pending received event invites.</li>
+  {% endfor %}
+</ul>
+
+<h2>Pending Event Invites (Sent)</h2>
+<ul>
+  {% for invite in pending_event_invites_sent %}
+    <li>To {{invite.invitee.get_name}} — Event: {{invite.event.event_title}}</li>
+  {% empty %}
+    <li>No pending sent event invites.</li>
+  {% endfor %}
+</ul>
+
+<h2>Accepted Collaborators (Friends/Work)</h2>
+<ul>
+  {% for collab in collaborators %}
+    <li>
+      {% if collab.inviter == profile.user %}
+        {{collab.invitee.get_name}}
+      {% else %}
+        {{collab.inviter.get_name}}
+      {% endif %}
+      ({{collab.collaborator_type}})
+    </li>
+  {% empty %}
+    <li>No accepted collaborators.</li>
+  {% endfor %}
+</ul>
+
+<h2>Pending Collaborator Invites (Sent)</h2>
+<ul>
+  {% for collab in pending_collab_invites_sent %}
+    <li>To {{collab.invitee.get_name}} ({{collab.collaborator_type}})</li>
+  {% empty %}
+    <li>No pending sent collaborator invites.</li>
+  {% endfor %}
+</ul>
+
+<h2>Pending Collaborator Invites (Received)</h2>
+<ul>
+  {% for collab in pending_collab_invites_received %}
+    <li>From {{collab.inviter.get_name}} ({{collab.collaborator_type}})</li>
+  {% empty %}
+    <li>No pending received collaborator invites.</li>
+  {% endfor %}
+</ul>
