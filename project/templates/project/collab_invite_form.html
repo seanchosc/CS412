@@ -1,0 +1,14 @@
+<!-- templates/collab_invite_form.html -->
+<!-- project/templates/project/collab_invite_form.html -->
+
+<!-- display the HTML form to send collaborator requests-->
+{% extends "project/base.html" %}
+{% block content %}
+<h2>Send a collaborator request to {{ target.get_name }}</h2>
+<!-- display the HTML form -->
+<form method="post">
+    {% csrf_token %} <!-- token -->
+    {{form.as_p}}  <!-- display form -->
+    <button type="submit">Send</button> <!-- submit form -->
+</form>
+{% endblock %}
