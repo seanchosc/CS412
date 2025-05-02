@@ -173,7 +173,7 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('profile_detail')
+        return reverse('show_profile') 
 
 class CollaboratorContextMixin:
     """Adds `collaborators` to the context, annotated with a `rel_type` key."""
@@ -287,10 +287,6 @@ class UpdateEventView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         # after editing, go back to the event’s detail page
         return reverse("event_details", kwargs={"pk": self.object.pk})
-    
-    def get_success_url(self):
-        # redirect back to the profile page (named show_profile)
-        return reverse("show_profile", args=[ self.request.user.project_profile.pk ])
 
 class LogoutRedirectView(TemplateView):
     ''' View for being redirected to logout confirmation page'''
@@ -438,7 +434,7 @@ class CalendarView(LoginRequiredMixin, TemplateView):
             })
         return JsonResponse(data, safe=False)
 
-def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs):
         '''Return the dictionary of context variables for use in the template.'''
 
         context = super().get_context_data(**kwargs) # default context by calling superclass
@@ -452,8 +448,8 @@ def get_context_data(self, **kwargs):
         )
         # get all events sorted by date and time
         events = Event.objects.ordered_by_event_time()
-        # assign events without any filtering
         context["events"] = events
+
         return context
 
 class EventJsonFeedView(LoginRequiredMixin, View):
