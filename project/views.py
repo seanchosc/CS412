@@ -284,8 +284,9 @@ class UpdateEventView(LoginRequiredMixin, UpdateView):
         print(f'UpdateEventView: form.cleaned_data={form.cleaned_data}')
         return super().form_valid(form)
     
-    def get_absolute_url(self):
-        return reverse('user_dashboard')
+    def get_success_url(self):
+        # after editing, go back to the event’s detail page
+        return reverse("event_details", kwargs={"pk": self.object.pk})
 
 class LogoutRedirectView(TemplateView):
     ''' View for being redirected to logout confirmation page'''
@@ -447,13 +448,8 @@ class CalendarView(LoginRequiredMixin, TemplateView):
         )
         # get all events sorted by date and time
         events = Event.objects.ordered_by_event_time()
-        # read filter parameter from query
-        etype = self.request.GET.get("type", "")
-        # if filter matches a valid type, apply it
-        if etype in dict(Event.EVENT_TYPES):
-            events = events.filter(event_type=etype)
         context["events"] = events
-        context["current_filter"] = etype
+
         return context
 
 class EventJsonFeedView(LoginRequiredMixin, View):

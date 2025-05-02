@@ -7,26 +7,6 @@
   <!-- FullCalendar container -->
   <div id="calendar"></div>
 
-  <!-- To filter the events in the calendar by event type -->
-  <form method="get" class="event‐filter">
-    <label for="type">Show:</label>
-    <select name="type" id="type" onchange="this.form.submit()">
-      <!-- Filter options -->
-      <option value="">All events</option>
-      <option value="self"{% if request.GET.type == "self"%}selected{% endif %}>My Events</option>
-      <option value="friends"{% if request.GET.type == "friends"%}selected{% endif %}>Friends’ Events</option>
-      <option value="work"{% if request.GET.type == "work"%}selected{% endif %}>Work Events</option>
-
-    </select>
-    <!-- no script submit -->
-    <noscript><button type="submit">Filter</button></noscript>
-  </form>
-
-  <!--Debugging aid -->
-  <p>Current filter = {{ request.GET.type|default:"<none>" }}</p>
-  <p>Events in context = {{ events|length }}</p>  
-
-
   <!-- FullCalendar and moment.js that I found after searching easiest Calendars to implement -->
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
