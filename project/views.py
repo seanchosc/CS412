@@ -458,25 +458,24 @@ class EventJsonFeedView(LoginRequiredMixin, View):
     returns a list of {title,start,end,id,url}
     """
     def get(self, request, *args, **kwargs):
-        # get the profile for current user
-        profile = Profile.objects.get(user=request.user)
+        profile = request.user.project_profile
 
-        # get events this user created
-        qs = Event.objects.filter(event_creator=profile)
+        # grab both created and collaborator events
+        created = Event.objects.filter(event_creator=profile)
+        collab_qs = EventCollaborator.objects.filter(collaborator=profile)
+        events = list(created) + [c.event for c in collab_qs]
 
-        # helper to convert event to fullcalendar dict
-        def _to_fc_dict(event):
-            start_dt = datetime.combine(event.event_date, event.event_start_time)
-            end_dt   = datetime.combine(event.event_date, event.event_end_time)
-            return {
-                "id":    event.id,
-                "title": event.event_title,
-                "start": start_dt.isoformat(),
-                "end":   end_dt.isoformat(),
-                "url":   reverse("event_details", args=[event.pk]),
-            }
-
-        data = [_to_fc_dict(e) for e in qs]
+        data = []
+        for ev in events:
+            start = datetime.combine(ev.event_date, ev.event_start_time or time.min)
+            end   = datetime.combine(ev.event_date, ev.event_end_time or time.max)
+            data.append({
+                "id":    ev.pk,
+                "title": ev.event_title,
+                "start": start.isoformat(),
+                "end":   end.isoformat(),
+                "url":   reverse("event_details", args=[ev.pk]),
+            })
         return JsonResponse(data, safe=False)
 
 def send_collab_invite(request, pk):
