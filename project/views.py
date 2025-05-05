@@ -75,7 +75,7 @@ class ShowUserDashboardView(TemplateView):
             has_profile = False
 
         context['has_profile'] = has_profile
-        context['profile']     = profile
+        context['profile']= profile
 
         if has_profile:
             # === your original DetailView logic, verbatim ===
@@ -157,7 +157,7 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
     ''' A view to handle updating an existing Profile'''
     model = Profile
     form_class = UpdateProfileForm
-    template_name = 'project/update_profile_form.html'
+    template_name ='project/update_profile_form.html'
 
     def get_login_url(self) -> str:
         return reverse('login')
@@ -167,7 +167,7 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
         return Profile.objects.get(user=self.request.user)
 
     def form_valid(self, form):
-        '''Debug & save updated Profile'''
+        ''' save updated Profile'''
         print(f'UpdateProfileView: form.cleaned_data={form.cleaned_data}')
         form.instance.user = self.request.user
         return super().form_valid(form)
@@ -179,11 +179,10 @@ class CollaboratorContextMixin:
     """Adds `collaborators` to the context, annotated with a `rel_type` key."""
 
     def _get_collaborators_for(self, profile):
-        """
+        '''
         Return a list of dicts:
-            {'profile': <Profile>, 'rel_type': 'inviter'|'invitee'}
         Only accepted relationships are included.
-        """
+        '''
         # Outgoing
         sent = Collaborator.objects.filter(
             inviter=profile, invite_status="accepted"
@@ -195,9 +194,9 @@ class CollaboratorContextMixin:
         ).select_related("inviter")
 
         normalized = [
-            {"profile": coll.invitee,  "rel_type": "inviter"} for coll in sent
+            {"profile": coll.invitee, "rel_type": "inviter"} for coll in sent
         ] + [
-            {"profile": coll.inviter,  "rel_type": "invitee"} for coll in received
+            {"profile": coll.inviter, "rel_type": "invitee"} for coll in received
         ]
         return normalized
 
@@ -238,7 +237,7 @@ class ShowProfilePageView(CollaboratorContextMixin, DetailView):
         collab   = EventCollaborator.objects.filter(collaborator=profile)
         events   = list(created) + [c.event for c in collab]
 
-        # combine & deduplicate (optional)
+        # combine & deduplicate 
         context["events"] = events
         # nav-bar helper
         context["has_profile"] = True
@@ -280,7 +279,7 @@ class UpdateEventView(LoginRequiredMixin, UpdateView):
         return Event.objects.filter(event_creator__user=self.request.user)
 
     def form_valid(self, form):
-        '''Debug & save updated Event'''
+        '''save updated Event'''
         print(f'UpdateEventView: form.cleaned_data={form.cleaned_data}')
         return super().form_valid(form)
     
@@ -326,10 +325,10 @@ class ShowEventDetailsView(LoginRequiredMixin, DetailView):
         '''Return the dictionary of context variables for use in the template.'''
 
         context = super().get_context_data(**kwargs)
-        event   = self.get_object()
+        event = self.get_object()
 
         # accepted collaborators
-        context['collaborators']   = event.collaborators.all()
+        context['collaborators']= event.collaborators.all()
 
         # pending invites for this event
         context['pending_invites'] = (EventInvite.objects.filter(event=event, invite_status='pending'))
@@ -343,21 +342,18 @@ class ShowEventDetailsView(LoginRequiredMixin, DetailView):
         )
         return context
 class CreateEventPostView(LoginRequiredMixin, CreateView):
-    """
+    '''
     handles the form & inline media in one go
     URL: /project/events/<event_pk>/posts/new/
-    """
-    model         = EventPost
-    form_class    = EventPostForm
+    '''
+    model = EventPost
+    form_class = EventPostForm
     template_name = "project/create_event_post_form.html"
 
     def dispatch(self, request, *args, **kwargs):
         self.event = Event.objects.get(pk=self.kwargs["event_pk"])
-        profile    = request.user.project_profile  # you already have this prop
-        allowed    = (
-            profile == self.event.event_creator or
-            self.event.collaborators.filter(collaborator=profile).exists()
-        )
+        profile = request.user.project_profile  # you already have this prop
+        allowed = (profile == self.event.event_creator or self.event.collaborators.filter(collaborator=profile).exists())
         if not allowed:
             return HttpResponseForbidden("Not allowed")
         return super().dispatch(request, *args, **kwargs)
@@ -365,7 +361,6 @@ class CreateEventPostView(LoginRequiredMixin, CreateView):
     # pass the extra formset to the template
     def get_context_data(self, **kwargs):
         '''Return the dictionary of context variables for use in the template.'''
-
         context = super().get_context_data(**kwargs) # default context
         context["event"] = self.event
         context["media_formset"] = kwargs.get("media_formset",EventPostMediaFormSet())
@@ -373,8 +368,8 @@ class CreateEventPostView(LoginRequiredMixin, CreateView):
         posts = (
             EventPost.objects
             .filter(event=self.object)
-            .select_related('post_author')     # 1-SQL join for the author
-            .prefetch_related('media')         # use the **correct** related-name
+            .select_related('post_author')
+            .prefetch_related('media')# use the related name
             .order_by('timestamp')
         )
         context['posts'] = posts
@@ -394,7 +389,7 @@ class CreateEventPostView(LoginRequiredMixin, CreateView):
         )
         if media_formset.is_valid():
             media_formset.save()
-        else:                          # rollback the post if media invalid
+        else: # rollback the post if media invalid
             self.object.delete()
             return self.form_invalid(form)
 
@@ -407,10 +402,10 @@ class CreateEventPostView(LoginRequiredMixin, CreateView):
 ### CALENDAR IMPLEMENTATION ###
 
 class CalendarView(LoginRequiredMixin, TemplateView):
-    """
+    '''
     show the calendar page using fullcalendar js
     it will load the calendar ui and then call events_json for data
-    """
+    '''
     template_name = "project/calendar.html"
 
     # fetch events from events_json
@@ -420,17 +415,16 @@ class CalendarView(LoginRequiredMixin, TemplateView):
         # grab events created by user
         created = Event.objects.filter(event_creator=profile)
         # grab events where user is a collaborator
-        collab  = EventCollaborator.objects.filter(collaborator=profile)
+        collab = EventCollaborator.objects.filter(collaborator=profile)
         # combine both lists
-        events  = list(created) + [c.event for c in collab]
-
+        events = list(created) + [c.event for c in collab]
         data = []
         for ev in events:
             data.append({
                 "id":    ev.pk,
                 "title": ev.event_title,
-                "start": ev.event_date.isoformat(),      # fullcalendar needs iso string
-                "url": reverse("event_details", args=[ev.pk]),  # link back to event page
+                "start": ev.event_date.isoformat(), # fullcalendar needs iso string
+                "url": reverse("event_details", args=[ev.pk]),# link back to event page
             })
         return JsonResponse(data, safe=False)
 
@@ -453,10 +447,10 @@ class CalendarView(LoginRequiredMixin, TemplateView):
         return context
 
 class EventJsonFeedView(LoginRequiredMixin, View):
-    """
+    '''
     give a json feed of events for fullcalendar
     returns a list of {title,start,end,id,url}
-    """
+    '''
     def get(self, request, *args, **kwargs):
         profile = request.user.project_profile
 
@@ -479,7 +473,7 @@ class EventJsonFeedView(LoginRequiredMixin, View):
         return JsonResponse(data, safe=False)
 
 def send_collab_invite(request, pk):
-    """ allow a user to invite someone as a collaborator """
+    ''' allow a user to invite someone as a collaborator '''
     try:
         target = Profile.objects.get(pk=pk)
     except Profile.DoesNotExist:
@@ -490,9 +484,7 @@ def send_collab_invite(request, pk):
         form = CollaboratorInviteForm(request.POST)
         if form.is_valid():
             # send invite from current user to target
-            result = request.user.project_profile.add_collaborator(
-                target.user, form.cleaned_data["collaborator_type"]
-            )
+            result = request.user.project_profile.add_collaborator(target.user, form.cleaned_data["collaborator_type"])
             messages.success(request, result)
             return redirect("show_person", pk=target.pk)
     else:
